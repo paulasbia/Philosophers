@@ -16,4 +16,6 @@
 ## About
 Refer to the [**subject of this project**](https://github.com/paulasbia/Phillosophers/blob/main/Subject_Phillo.pdf)
 
+A project at 42 schools exploring process threading.
+
 ## Study references
