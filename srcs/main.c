@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/17 11:34:10 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/17 12:04:53 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main(int ac, char **av)
 {
-    (void)av;
+	(void)av;
 	if (check_args(ac, av) == 1)
 		return (1);
 }
