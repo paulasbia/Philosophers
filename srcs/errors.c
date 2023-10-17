@@ -1,20 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/17 11:34:10 by paulabiazot      ###   ########.fr       */
+/*   Created: 2023/10/17 11:26:53 by paulabiazot       #+#    #+#             */
+/*   Updated: 2023/10/17 11:57:44 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int ac, char **av)
+int	error_msg(const char *msg)
 {
-    (void)av;
-	if (check_args(ac, av) == 1)
-		return (1);
+	printf("\033[31mERROR - %s\e[0m", msg);
+    return (1);
 }
