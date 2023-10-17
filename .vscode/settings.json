@@ -1,0 +1,9 @@
+{
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/Users/paulabiazotto/42lisboa/Philosophers",
+            "binaryPath": "/Users/paulabiazotto/42lisboa/Philosophers/philo",
+            "binaryArgs": []
+        }
+    ]
+}
