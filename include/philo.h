@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 15:21:49 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 15:31:05 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ typedef struct s_start
 int					check_args(int ac, char **av);
 int					error_msg(const char *msg);
 int					ft_atoi(const char *nptr);
-void				lets_start(t_start *start, char **av);
+void				lets_start(t_start *start, char **av, int ac);
 t_table				*create_table(int philo);
 int					start_thread(int num_philo);
 

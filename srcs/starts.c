@@ -6,19 +6,21 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 15:21:19 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 15:32:02 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	lets_start(t_start *start, char **av)
+void	lets_start(t_start *start, char **av, int ac)
 {
 	start->num_philo = ft_atoi(av[1]);
 	printf("philo %d\n", start->num_philo);
 	start->times.t_death = ft_atoi(av[2]);
 	start->times.t_eat = ft_atoi(av[3]);
 	start->times.t_sleep = ft_atoi(av[4]);
+    if (ac == 6)
+		start->times.t_must_eat = ft_atoi(av[5]);
 	printf("death %d eat %d sleep %d\n", start->times.t_death,
 		start->times.t_eat, start->times.t_sleep);
 }
