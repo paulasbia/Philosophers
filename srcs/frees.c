@@ -1,24 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 16:22:00 by paulabiazot      ###   ########.fr       */
+/*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
+/*   Updated: 2023/10/18 16:34:11 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int ac, char **av)
+void    destroy_mutex(t_start start)
 {
-	t_start	start;
-
-	if (check_args(ac, av) == 1)
-		return (1);
-	lets_start(&start, av, ac);
-	create_table(start.num_philo);
-	start_thread(start, start.num_philo);
+	pthread_mutex_destroy(&start.mutex.is_death);
+    pthread_mutex_destroy(&start.mutex.is_write);
+    pthread_mutex_destroy(&start.mutex.forks);
 }

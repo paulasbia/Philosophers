@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 11:25:35 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 16:23:20 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	*routine(void *arg)
 	return (NULL);
 }
 
-int	start_thread(int num_philo)
+int	start_thread(t_start start, int num_philo)
 {
 	pthread_t	*th;
 	int			i;
@@ -49,5 +49,6 @@ int	start_thread(int num_philo)
 			error_msg("Failed to join thread!");
 		i++;
 	}
+	destroy_mutex(start);
 	return (0);
 }
