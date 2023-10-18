@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 16:36:01 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 16:51:06 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ void	lets_start(t_start *start, char **av, int ac)
 	start->times.t_death = ft_atoi(av[2]);
 	start->times.t_eat = ft_atoi(av[3]);
 	start->times.t_sleep = ft_atoi(av[4]);
-    if (ac == 6)
+	if (ac == 6)
 		start->times.t_must_eat = ft_atoi(av[5]);
 	pthread_mutex_init(&start->mutex.is_death, NULL);
 	pthread_mutex_init(&start->mutex.is_write, NULL);
-    pthread_mutex_init(&start->mutex.forks, NULL);
+	pthread_mutex_init(&start->mutex.forks, NULL);
 }
 
 t_table	*create_node(int content)
