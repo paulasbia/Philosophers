@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/17 12:05:47 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 11:18:35 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,18 @@ int	check_args(int ac, char **av)
 	int	i;
 
 	if (ac > 6 || ac < 5)
+	{
 		error_msg("Number of arguments is wrong!\n");
+		return (1);
+	}
 	i = 1;
 	while (i < ac)
 	{
 		if (is_number(av[i]) == 1)
+		{
 			error_msg("Argument is invalid!\n");
+			return (1);
+		}
 		i++;
 	}
 	return (0);
