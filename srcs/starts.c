@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 17:49:32 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 18:42:42 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,13 @@ void	lets_start(t_start *start, char **av, int ac)
 t_table	*create_node(int content)
 {
 	t_table	*new;
+//    t_mutex *fork;
 
 	new = (t_table *)malloc(sizeof(t_table));
+//    fork = (t_mutex *)malloc(sizeof(t_mutex));
 	if (new == 0)
 		return (NULL);
+   // new->fork_mutex = fork;
 	new->content = content;
 	new->next = 0;
 	return (new);
@@ -39,26 +42,31 @@ t_table	*create_node(int content)
 
 t_table	*ft_lstlast(t_table *lst)
 {
+    t_table *first;
+
 	if (!lst)
 		return (NULL);
-	while (lst->next)
+    first = lst;
+	while (lst->next != first)
 		lst = lst->next;
 	return (lst);
 }
 
 void	ft_lstadd_back(t_table **lst, t_table *new)
 {
-	t_table	*temp;
+	t_table	*last;
 
 	if (!lst || !new)
 		return ;
 	if (!*lst)
 	{
 		*lst = new;
+        new->next = new;
 		return ;
 	}
-	temp = ft_lstlast(*lst);
-	temp->next = new;
+	last = ft_lstlast(*lst);
+    new->next = last->next;
+	last->next = new;
 }
 
 t_table	*create_table(int philo)

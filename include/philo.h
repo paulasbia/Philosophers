@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 17:48:24 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 18:43:11 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ typedef struct s_times
 typedef struct s_table
 {
 	int				content;
+///	t_mutex			*fork_mutex;
 	struct s_table	*next;
 }					t_table;
 
