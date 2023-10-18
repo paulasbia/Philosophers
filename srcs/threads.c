@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 16:23:20 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 17:45:42 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,6 @@ int	start_thread(t_start start, int num_philo)
 			error_msg("Failed to join thread!");
 		i++;
 	}
-	destroy_mutex(start);
+	destroy_mutex(&start);
 	return (0);
 }
