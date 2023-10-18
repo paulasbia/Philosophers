@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 17:48:09 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/18 17:49:32 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,9 @@ t_table	*create_table(int philo)
 	{
 		temp = create_node(i);
 		ft_lstadd_back(&table, temp);
-        printf("nó %d\n", i);
+		printf("nó %d\n", i);
 		i++;
 	}
-    ft_lstclear(&table);
+	ft_lstclear(&table);
 	return (table);
 }
