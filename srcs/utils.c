@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.h                                            :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 10:18:29 by paulabiazot      ###   ########.fr       */
+/*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
+/*   Updated: 2023/10/18 09:51:22 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PHILO_H
-# define PHILO_H
+#include "../include/philo.h"
 
-# include <pthread.h>
-# include <stdio.h>
-# include <stdlib.h>
-# include <sys/time.h>
-# include <unistd.h>
-
-typedef struct s_begin
+int	ft_atoi(const char *nptr)
 {
-	int     num_philo;
-}	t_begin;
+	int	signal;
+	int	result;
 
-int	check_args(int ac, char **av);
-int	error_msg(const char *msg);
-int	ft_atoi(const char *nptr);
-int start_thread(int num_philo);
-
-#endif
+	signal = 1;
+	result = 0;
+	while (*nptr == ' ' || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '+' || *nptr == '-')
+	{
+		if (*nptr == '-')
+			signal = signal * -1;
+		nptr++;
+	}
+	while (*nptr >= '0' && *nptr <= '9')
+	{
+		result = result * 10 + (*nptr - '0');
+		nptr++;
+	}
+	return (result * signal);
+}
