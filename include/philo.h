@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 18:43:11 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/19 10:17:50 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ typedef struct s_times
 
 typedef struct s_table
 {
+	pthread_mutex_t	mutex;
 	int				content;
-///	t_mutex			*fork_mutex;
 	struct s_table	*next;
 }					t_table;
 
@@ -54,7 +54,7 @@ int					error_msg(const char *msg);
 int					ft_atoi(const char *nptr);
 void				lets_start(t_start *start, char **av, int ac);
 t_table				*create_table(int philo);
-int					start_thread(t_start start, int num_philo);
+int					start_thread(t_start start);
 void				destroy_mutex(t_start *start);
 void				ft_lstclear(t_table **lst);
 

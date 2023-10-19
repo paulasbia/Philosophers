@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 18:42:42 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/19 10:27:54 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,11 @@ void	lets_start(t_start *start, char **av, int ac)
 t_table	*create_node(int content)
 {
 	t_table	*new;
-//    t_mutex *fork;
 
 	new = (t_table *)malloc(sizeof(t_table));
-//    fork = (t_mutex *)malloc(sizeof(t_mutex));
 	if (new == 0)
 		return (NULL);
-   // new->fork_mutex = fork;
+    pthread_mutex_init(&new->mutex, NULL);
 	new->content = content;
 	new->next = 0;
 	return (new);
@@ -84,6 +82,5 @@ t_table	*create_table(int philo)
 		printf("nó %d\n", i);
 		i++;
 	}
-	ft_lstclear(&table);
 	return (table);
 }
