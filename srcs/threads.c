@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 15:00:57 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:09:56 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,12 +53,10 @@ void	go_eat(t_philo *philo)
 
 void	*routine(void *arg)
 {
-	int	dead;
+	int		dead;
 	t_philo	*node;
-//	t_table	*first;
 
 	node = (t_philo *)arg;
-//	first = node;
 	dead = 0;
 	while (life(node, &dead))
 	{

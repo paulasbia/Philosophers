@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/19 10:29:29 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:10:52 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,5 +21,5 @@ int	main(int ac, char **av)
 	lets_start(&start, av, ac);
 	start.forks = create_table(start.num_philo);
 	start_thread(start);
-    ft_lstclear(&start.forks);
+	ft_lstclear(&start.forks);
 }

@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 14:55:58 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:11:00 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ t_philo	*create_node(int content)
 	new = (t_philo *)malloc(sizeof(t_philo));
 	if (new == 0)
 		return (NULL);
-    pthread_mutex_init(&new->fork, NULL);
-    pthread_mutex_init(&new->mutex.is_death, NULL);
-    pthread_mutex_init(&new->mutex.is_write, NULL);
-    new->mutex.is_locked = 0;
+	pthread_mutex_init(&new->fork, NULL);
+	pthread_mutex_init(&new->mutex.is_death, NULL);
+	pthread_mutex_init(&new->mutex.is_write, NULL);
+	new->mutex.is_locked = 0;
 	new->content = content;
 	new->next = 0;
 	return (new);
@@ -43,11 +43,11 @@ t_philo	*create_node(int content)
 
 t_philo	*ft_lstlast(t_philo *lst)
 {
-    t_philo *first;
+	t_philo	*first;
 
 	if (!lst)
 		return (NULL);
-    first = lst;
+	first = lst;
 	while (lst->next != first)
 		lst = lst->next;
 	return (lst);
@@ -62,11 +62,11 @@ void	ft_lstadd_back(t_philo **lst, t_philo *new)
 	if (!*lst)
 	{
 		*lst = new;
-        new->next = new;
+		new->next = new;
 		return ;
 	}
 	last = ft_lstlast(*lst);
-    new->next = last->next;
+	new->next = last->next;
 	last->next = new;
 }
 

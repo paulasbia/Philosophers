@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 13:50:17 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:10:25 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,17 @@ void	destroy_mutex(t_start *start)
 void	ft_lstclear(t_philo **lst)
 {
 	t_philo	*temp;
-    t_philo *first;
+	t_philo	*first;
 
-    first = *lst;
+	first = *lst;
 	while (*lst != 0)
 	{
 		temp = (*lst)->next;
-        printf("liberou\n");
+		printf("liberou\n");
 		free(*lst);
 		*lst = temp;
-        if (*lst == first)
-            break;
+		if (*lst == first)
+			break ;
 	}
 	*lst = NULL;
 }
