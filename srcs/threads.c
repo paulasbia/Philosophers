@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 09:48:13 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 11:19:11 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,32 +14,28 @@
 
 void	take_fork(t_table *philo)
 {
-	pthread_mutex_lock(&philo->mutex);
+	pthread_mutex_lock(&philo->fork);
 	printf("philo %d has taken a fork\n", philo->content);
-	pthread_mutex_lock(&philo->next->mutex);
+	pthread_mutex_lock(&philo->next->fork);
 	printf("philo %d has taken a second fork\n", philo->content);
 }
 
 void	go_eat(t_table *philo)
 {
 	printf("philo %d is eating\n", philo->content);
-	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_unlock(&philo->fork);
 	printf("philo %d has unlock a fork\n", philo->content);
-	pthread_mutex_unlock(&philo->next->mutex);
+	pthread_mutex_unlock(&philo->next->fork);
 	printf("philo %d has unlock a second fork\n", philo->content);
 }
 
 void	*routine(void *arg)
 {
-//	pthread_mutex_t	*my_fork;
-//	pthread_mutex_t	*next_philo_fork;
 	int	i;
 	t_table	*node;
 //	t_table	*first;
 
 	node = (t_table *)arg;
-//	my_fork = &node->mutex;
-//	next_philo_fork = &node->next->mutex;
 //	first = node;
 	i = 0;
 	while (i < 1)

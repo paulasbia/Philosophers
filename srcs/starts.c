@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/19 10:27:54 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 11:02:43 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_table	*create_node(int content)
 	new = (t_table *)malloc(sizeof(t_table));
 	if (new == 0)
 		return (NULL);
-    pthread_mutex_init(&new->mutex, NULL);
+    pthread_mutex_init(&new->fork, NULL);
 	new->content = content;
 	new->next = 0;
 	return (new);

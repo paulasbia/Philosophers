@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/19 10:17:50 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 11:14:15 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+# define FIRST_FORK 0
+# define SECOND_FORK 1
+# define EAT 2
+# define SLEEP 3
+# define THINK 4
+# define DIED 5
+
 typedef struct s_times
 {
 	int				t_death;
@@ -29,7 +36,7 @@ typedef struct s_times
 
 typedef struct s_table
 {
-	pthread_mutex_t	mutex;
+	pthread_mutex_t	fork;
 	int				content;
 	struct s_table	*next;
 }					t_table;
