@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 14:11:43 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 14:54:53 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_times
 typedef struct s_mutex
 {
 	pthread_mutex_t		is_death;
+	int					is_locked;
 	pthread_mutex_t		is_write;
 	pthread_mutex_t		forks;
 }	t_mutex;

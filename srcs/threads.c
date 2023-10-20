@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 14:35:16 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:00:57 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,18 @@ int	life(t_philo *philo, int *dead)
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->fork);
-	printf("philo %d has taken a fork\n", philo->content);
-	pthread_mutex_lock(&philo->next->fork);
-	printf("philo %d has taken a second fork\n", philo->content);
+	if (!philo->mutex.is_locked)
+	{
+		pthread_mutex_lock(&philo->fork);
+		printf("philo %d has taken a fork\n", philo->content);
+		philo->mutex.is_locked = 1;
+	}
+	if (!philo->next->mutex.is_locked)
+	{
+		pthread_mutex_lock(&philo->next->fork);
+		printf("philo %d has taken a second fork\n", philo->content);
+		philo->next->mutex.is_locked = 1;
+	}
 }
 
 void	go_eat(t_philo *philo)
@@ -39,6 +47,8 @@ void	go_eat(t_philo *philo)
 	printf("philo %d has unlock a fork\n", philo->content);
 	pthread_mutex_unlock(&philo->next->fork);
 	printf("philo %d has unlock a second fork\n", philo->content);
+	philo->mutex.is_locked = 0;
+	philo->next->mutex.is_locked = 0;
 }
 
 void	*routine(void *arg)
