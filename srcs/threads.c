@@ -6,26 +6,47 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/19 10:33:43 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 09:48:13 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
+void	take_fork(t_table *philo)
+{
+	pthread_mutex_lock(&philo->mutex);
+	printf("philo %d has taken a fork\n", philo->content);
+	pthread_mutex_lock(&philo->next->mutex);
+	printf("philo %d has taken a second fork\n", philo->content);
+}
+
+void	go_eat(t_table *philo)
+{
+	printf("philo %d is eating\n", philo->content);
+	pthread_mutex_unlock(&philo->mutex);
+	printf("philo %d has unlock a fork\n", philo->content);
+	pthread_mutex_unlock(&philo->next->mutex);
+	printf("philo %d has unlock a second fork\n", philo->content);
+}
+
 void	*routine(void *arg)
 {
+//	pthread_mutex_t	*my_fork;
+//	pthread_mutex_t	*next_philo_fork;
 	int	i;
 	t_table	*node;
-	pthread_mutex_t	*my_fork;
-	pthread_mutex_t	*next_philo_fork;
+//	t_table	*first;
 
 	node = (t_table *)arg;
-	next_philo_fork = &node->next->mutex;
-	my_fork = &node->mutex;
+//	my_fork = &node->mutex;
+//	next_philo_fork = &node->next->mutex;
+//	first = node;
 	i = 0;
-	while (i < 2)
+	while (i < 1)
 	{
-		printf("passou %d thread %d\n", i, node->content);
+		take_fork(node);
+		go_eat(node);
+		printf("philo %d esta pensando\n", node->content);
 		i++;
 	}
 	return (NULL);
