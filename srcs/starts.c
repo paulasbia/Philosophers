@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 11:02:43 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 14:32:11 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,22 +25,24 @@ void	lets_start(t_start *start, char **av, int ac)
 	pthread_mutex_init(&start->mutex.forks, NULL);
 }
 
-t_table	*create_node(int content)
+t_philo	*create_node(int content)
 {
-	t_table	*new;
+	t_philo	*new;
 
-	new = (t_table *)malloc(sizeof(t_table));
+	new = (t_philo *)malloc(sizeof(t_philo));
 	if (new == 0)
 		return (NULL);
     pthread_mutex_init(&new->fork, NULL);
+    pthread_mutex_init(&new->mutex.is_death, NULL);
+    pthread_mutex_init(&new->mutex.is_write, NULL);
 	new->content = content;
 	new->next = 0;
 	return (new);
 }
 
-t_table	*ft_lstlast(t_table *lst)
+t_philo	*ft_lstlast(t_philo *lst)
 {
-    t_table *first;
+    t_philo *first;
 
 	if (!lst)
 		return (NULL);
@@ -50,9 +52,9 @@ t_table	*ft_lstlast(t_table *lst)
 	return (lst);
 }
 
-void	ft_lstadd_back(t_table **lst, t_table *new)
+void	ft_lstadd_back(t_philo **lst, t_philo *new)
 {
-	t_table	*last;
+	t_philo	*last;
 
 	if (!lst || !new)
 		return ;
@@ -67,10 +69,10 @@ void	ft_lstadd_back(t_table **lst, t_table *new)
 	last->next = new;
 }
 
-t_table	*create_table(int philo)
+t_philo	*create_table(int philo)
 {
-	t_table	*table;
-	t_table	*temp;
+	t_philo	*table;
+	t_philo	*temp;
 	int		i;
 
 	table = NULL;

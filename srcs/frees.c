@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/18 18:09:51 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 13:50:17 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ void	destroy_mutex(t_start *start)
 	pthread_mutex_destroy(&start->mutex.forks);
 }
 
-void	ft_lstclear(t_table **lst)
+void	ft_lstclear(t_philo **lst)
 {
-	t_table	*temp;
-    t_table *first;
+	t_philo	*temp;
+    t_philo *first;
 
     first = *lst;
 	while (*lst != 0)
