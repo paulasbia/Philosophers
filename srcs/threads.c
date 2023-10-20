@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 15:09:56 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/20 15:21:29 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ void	take_fork(t_philo *philo)
 		printf("philo %d has taken a fork\n", philo->content);
 		philo->mutex.is_locked = 1;
 	}
+	else
+		return ;
 	if (!philo->next->mutex.is_locked)
 	{
 		pthread_mutex_lock(&philo->next->fork);
