@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 15:21:29 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/23 13:06:44 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,21 @@ int	life(t_philo *philo, int *dead)
 
 void	take_fork(t_philo *philo)
 {
-	if (!philo->mutex.is_locked)
+	if (philo->content % 2 != 0)
 	{
 		pthread_mutex_lock(&philo->fork);
 		printf("philo %d has taken a fork\n", philo->content);
 		philo->mutex.is_locked = 1;
+		pthread_mutex_lock(&philo->next->fork);
+		printf("philo %d has taken a second fork\n", philo->content);
+		philo->next->mutex.is_locked = 1;
 	}
 	else
-		return ;
-	if (!philo->next->mutex.is_locked)
 	{
 		pthread_mutex_lock(&philo->next->fork);
+		printf("philo %d has taken a fork\n", philo->content);
+		philo->mutex.is_locked = 1;
+		pthread_mutex_lock(&philo->fork);
 		printf("philo %d has taken a second fork\n", philo->content);
 		philo->next->mutex.is_locked = 1;
 	}
@@ -62,8 +66,8 @@ void	*routine(void *arg)
 	dead = 0;
 	while (life(node, &dead))
 	{
-		printf("entrou\n");
-		take_fork(node);
+		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
+			take_fork(node);
 		go_eat(node);
 		printf("philo %d esta pensando\n", node->content);
 	}
