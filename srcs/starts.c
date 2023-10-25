@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 15:11:00 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/25 10:29:09 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 void	lets_start(t_start *start, char **av, int ac)
 {
+    (void)ac;
 	start->num_philo = ft_atoi(av[1]);
-	start->times.t_death = ft_atoi(av[2]);
-	start->times.t_eat = ft_atoi(av[3]);
-	start->times.t_sleep = ft_atoi(av[4]);
-	if (ac == 6)
-		start->times.t_must_eat = ft_atoi(av[5]);
+//	start->times.t_death = ft_atoi(av[2]);
+//	start->times.t_eat = ft_atoi(av[3]);
+//	start->times.t_sleep = ft_atoi(av[4]);
+//	if (ac == 6)
+//		start->times.t_must_eat = ft_atoi(av[5]);
 	pthread_mutex_init(&start->mutex.is_death, NULL);
 	pthread_mutex_init(&start->mutex.is_write, NULL);
 	pthread_mutex_init(&start->mutex.forks, NULL);
 }
 
-t_philo	*create_node(int content)
+t_philo	*create_node(int content, char **av, int ac)
 {
 	t_philo	*new;
 
@@ -38,6 +39,12 @@ t_philo	*create_node(int content)
 	new->mutex.is_locked = 0;
 	new->content = content;
 	new->next = 0;
+    new->last_eat = 0;
+	new->times.t_death = ft_atoi(av[2]);
+	new->times.t_eat = ft_atoi(av[3]);
+	new->times.t_sleep = ft_atoi(av[4]);
+    if (ac == 6)
+		new->times.t_must_eat = ft_atoi(av[5]);
 	return (new);
 }
 
@@ -70,7 +77,7 @@ void	ft_lstadd_back(t_philo **lst, t_philo *new)
 	last->next = new;
 }
 
-t_philo	*create_table(int philo)
+t_philo	*create_table(t_start *start, char **av, int ac)
 {
 	t_philo	*table;
 	t_philo	*temp;
@@ -78,9 +85,9 @@ t_philo	*create_table(int philo)
 
 	table = NULL;
 	i = 1;
-	while (i <= philo)
+	while (i <= start->num_philo)
 	{
-		temp = create_node(i);
+		temp = create_node(i, av, ac);
 		ft_lstadd_back(&table, temp);
 		printf("nó %d\n", i);
 		i++;

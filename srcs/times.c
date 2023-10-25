@@ -1,25 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   times.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/25 10:18:50 by paulabiazot      ###   ########.fr       */
+/*   Created: 2023/10/25 10:35:36 by paulabiazot       #+#    #+#             */
+/*   Updated: 2023/10/25 10:36:04 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	main(int ac, char **av)
+long long int	s_to_mil(struct timeval t)
 {
-	t_start	start;
+	long long int	res;
 
-	if (check_args(ac, av) == 1)
-		return (1);
-	lets_start(&start, av, ac);
-	start.forks = create_table(&start, av, ac);
-	start_thread(start);
-	ft_lstclear(&start.forks);
+	res = t.tv_sec * 1000;
+	res += t.tv_usec / 1000;
+	return (res);
+}
+
+long long int	gt(struct timeval start)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000) - s_to_mil(start));
 }

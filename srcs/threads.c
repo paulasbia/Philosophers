@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/23 13:06:44 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/25 11:00:55 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,20 @@ int	life(t_philo *philo, int *dead)
 	}
 	pthread_mutex_unlock(&philo->mutex.is_death);
 	return (1);
+}
+
+int	is_dead(t_philo *philo, int *died)
+{
+	printf("start time, last eat %lld e t_death %d\n", philo->last_eat, philo->times.t_death);
+	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
+	{
+		printf("philo %d morre\n", philo->content);
+		pthread_mutex_lock(&philo->mutex.is_death);
+		*died = 1;
+		pthread_mutex_unlock(&philo->mutex.is_death);
+		return (1);
+	}
+	return (0);
 }
 
 void	take_fork(t_philo *philo)
@@ -61,16 +75,21 @@ void	*routine(void *arg)
 {
 	int		dead;
 	t_philo	*node;
+	static struct timeval	time;
 
 	node = (t_philo *)arg;
 	dead = 0;
-	while (life(node, &dead))
+	gettimeofday(&time, NULL);
+	node->start_time = time;
+	while (!(is_dead(node, &dead)))
 	{
+		printf("dead eh %d\n\n", dead);
 		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
 			take_fork(node);
 		go_eat(node);
 		printf("philo %d esta pensando\n", node->content);
 	}
+	printf("dead eh %d\n\n", dead);
 	return (NULL);
 }
 

@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/20 14:54:53 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/25 10:38:02 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,11 @@ typedef struct s_mutex
 
 typedef struct s_philo
 {
+	int				num_philo;
+	struct timeval	start_time;
+	long long int	last_eat;
 	pthread_mutex_t	fork;
+	t_times			times;
 	t_mutex			mutex;
 	int				content;
 	struct s_philo	*next;
@@ -58,13 +62,16 @@ typedef struct s_start
 	t_mutex			mutex;
 }					t_start;
 
+
 int					check_args(int ac, char **av);
 int					error_msg(const char *msg);
 int					ft_atoi(const char *nptr);
 void				lets_start(t_start *start, char **av, int ac);
-t_philo				*create_table(int philo);
+t_philo				*create_table(t_start *start, char **av, int ac);
+long long int		gt(struct timeval start);
 int					start_thread(t_start start);
 void				destroy_mutex(t_start *start);
 void				ft_lstclear(t_philo **lst);
+
 
 #endif
