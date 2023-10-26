@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/25 10:38:02 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/26 09:34:44 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ typedef struct s_start
 	t_mutex			mutex;
 }					t_start;
 
-
 int					check_args(int ac, char **av);
 int					error_msg(const char *msg);
 int					ft_atoi(const char *nptr);
@@ -72,6 +71,5 @@ long long int		gt(struct timeval start);
 int					start_thread(t_start start);
 void				destroy_mutex(t_start *start);
 void				ft_lstclear(t_philo **lst);
-
 
 #endif
