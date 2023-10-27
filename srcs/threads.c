@@ -6,28 +6,14 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/26 10:03:38 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/27 11:02:28 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	check_life(t_philo *philo, int *dead)
-{
-	pthread_mutex_lock(&philo->mutex.is_death);
-	if (*dead == 1)
-	{
-		pthread_mutex_unlock(&philo->mutex.is_death);
-		return (0);
-	}
-	pthread_mutex_unlock(&philo->mutex.is_death);
-	return (1);
-}
-
 int	is_dead(t_philo *philo, int *died)
 {
-	printf("start time, last eat %lld e t_death %d\n", philo->last_eat,
-		philo->times.t_death);
 	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
 		printf("philo %d morre\n", philo->content);
@@ -39,48 +25,32 @@ int	is_dead(t_philo *philo, int *died)
 	return (0);
 }
 
-int	take_fork(t_philo *philo)
-{
-	if (philo->content % 2 != 0)
-	{
-		pthread_mutex_lock(&philo->fork);
-		printf("philo %d has taken a fork\n", philo->content);
-		philo->mutex.is_locked = 1;
-		pthread_mutex_lock(&philo->next->fork);
-		printf("philo %d has taken a second fork\n", philo->content);
-		philo->next->mutex.is_locked = 1;
-		return (1);
-	}
-	else
-	{
-		pthread_mutex_lock(&philo->next->fork);
-		printf("philo %d has taken a fork\n", philo->content);
-		philo->mutex.is_locked = 1;
-		pthread_mutex_lock(&philo->fork);
-		printf("philo %d has taken a second fork\n", philo->content);
-		philo->next->mutex.is_locked = 1;
-		return (1);
-	}
-	return (0);
-}
-
 int	go_eat(t_philo *philo, int *dead)
 {
-	(void)dead;
 	philo->last_eat = gt(philo->start_time);
 	printf("philo %d is eating\n", philo->content);
-	/*while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
+	philo->times.t_eaten++;
+	if (philo->times.t_must_eat)
+		check_eat(philo);
+	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
 		if (!(check_life(philo, dead)) || is_dead(philo, dead))
 			return (1);
-	}*/
-	pthread_mutex_unlock(&philo->next->fork);
-	printf("philo %d has unlock a fork\n", philo->content);
-	philo->mutex.is_locked = 0;
-	pthread_mutex_unlock(&philo->fork);
-	printf("philo %d has unlock a second fork\n", philo->content);
-	philo->next->mutex.is_locked = 0;
-	return(0);
+	}
+	unlocked_fork(philo);
+	return (0);
+}
+
+int	go_sleep(t_philo *philo, int *died)
+{
+	printf("philo %d is sleep now......\n", philo->content);
+	while (gt(philo->start_time) - philo->last_eat < philo->times.t_sleep
+		+ philo->times.t_eat)
+	{
+		if (!(check_life(philo, died)) || is_dead(philo, died))
+			return (1);
+	}
+	return (0);
 }
 
 void	*routine(void *arg)
@@ -97,15 +67,16 @@ void	*routine(void *arg)
 	node->start_time = time;
 	if (node->content % 2 == 0)
 		usleep(1000);
-	while (check_life(node, &dead) || !(is_dead(node, &dead)))
+	while (1)
 	{
-		printf("dead eh %d\n\n", dead);
+		if (!(check_life(node, &dead)) || (is_dead(node, &dead)))
+			break ;
 		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
 			if (take_fork(node))
-				go_eat(node, &dead);
-		printf("philo %d esta pensando\n", node->content);
+				if (!(go_eat(node, &dead)))
+					if (!(go_sleep(node, &dead)))
+						printf("philo %d esta pensando\n", node->content);
 	}
-	printf("dead eh %d\n\n", dead);
 	return (NULL);
 }
 

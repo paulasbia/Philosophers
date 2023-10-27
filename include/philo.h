@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/26 09:34:44 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/27 11:03:01 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,18 @@ typedef struct s_times
 	int				t_sleep;
 	int				t_eat;
 	int				t_must_eat;
+	int				t_eaten;
+	int				t_eating;
 }					t_times;
 
 typedef struct s_mutex
 {
-	pthread_mutex_t		is_death;
-	int					is_locked;
-	pthread_mutex_t		is_write;
-	pthread_mutex_t		forks;
-}	t_mutex;
+	pthread_mutex_t	is_death;
+	int				is_locked;
+	pthread_mutex_t	is_write;
+	pthread_mutex_t	is_eating;
+	pthread_mutex_t	forks;
+}					t_mutex;
 
 typedef struct s_philo
 {
@@ -68,6 +71,10 @@ int					ft_atoi(const char *nptr);
 void				lets_start(t_start *start, char **av, int ac);
 t_philo				*create_table(t_start *start, char **av, int ac);
 long long int		gt(struct timeval start);
+int					check_life(t_philo *philo, int *dead);
+int					take_fork(t_philo *philo);
+void				unlocked_fork(t_philo *philo);
+void				check_eat(t_philo *philo);
 int					start_thread(t_start start);
 void				destroy_mutex(t_start *start);
 void				ft_lstclear(t_philo **lst);
