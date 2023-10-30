@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/30 17:02:01 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 17:24:24 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,10 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		{
 			usleep(50);
 			if (is_dead(philo, time))
+			{
+				unlocked_fork(philo, time);
 				return (1);	
+			}
 		}
 		pthread_mutex_lock(&philo->next->fork);
 		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
@@ -75,7 +78,10 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		{
 			usleep(50);
 			if (is_dead(philo, time))
-				return (1);	
+			{
+				unlocked_fork(philo->next, time);
+				return (1);
+			}
 		}
 		pthread_mutex_lock(&philo->fork);
 		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
