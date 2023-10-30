@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/27 11:03:01 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 17:00:27 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,13 @@ typedef struct s_mutex
 	pthread_mutex_t	forks;
 }					t_mutex;
 
+typedef struct s_start
+{
+	int				num_philo;
+	int				death;
+	t_mutex			mutex;
+}					t_start;
+
 typedef struct s_philo
 {
 	int				num_philo;
@@ -55,15 +62,8 @@ typedef struct s_philo
 	t_mutex			mutex;
 	int				content;
 	struct s_philo	*next;
+	t_start			*start;
 }					t_philo;
-
-typedef struct s_start
-{
-	int				num_philo;
-	t_times			times;
-	t_philo			*forks;
-	t_mutex			mutex;
-}					t_start;
 
 int					check_args(int ac, char **av);
 int					error_msg(const char *msg);
@@ -71,11 +71,12 @@ int					ft_atoi(const char *nptr);
 void				lets_start(t_start *start, char **av, int ac);
 t_philo				*create_table(t_start *start, char **av, int ac);
 long long int		gt(struct timeval start);
-int					check_life(t_philo *philo, int *dead);
-int					take_fork(t_philo *philo);
-void				unlocked_fork(t_philo *philo);
+int					check_life(t_philo *philo);
+int					take_fork(t_philo *philo, struct timeval *time);
+void				unlocked_fork(t_philo *philo, struct timeval *time);
 void				check_eat(t_philo *philo);
-int					start_thread(t_start start);
+int					start_thread(t_start start, t_philo *table);
+int	is_dead(t_philo *philo, struct timeval *time);
 void				destroy_mutex(t_start *start);
 void				ft_lstclear(t_philo **lst);
 

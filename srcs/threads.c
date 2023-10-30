@@ -6,48 +6,52 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/27 11:02:28 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 17:07:59 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	is_dead(t_philo *philo, int *died)
+int	is_dead(t_philo *philo, struct timeval *time)
 {
 	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
-		printf("philo %d morre\n", philo->content);
-		pthread_mutex_lock(&philo->mutex.is_death);
-		*died = 1;
-		pthread_mutex_unlock(&philo->mutex.is_death);
+		pthread_mutex_lock(&philo->start->mutex.is_death);
+		if (philo->start->death == 0)
+			printf("%lld philo %d died\n", gt(*time), philo->content);
+		philo->start->death = 1;
+		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (1);
 	}
 	return (0);
 }
 
-int	go_eat(t_philo *philo, int *dead)
+int	go_eat(t_philo *philo, struct timeval *time)
 {
 	philo->last_eat = gt(philo->start_time);
-	printf("philo %d is eating\n", philo->content);
+	printf("%lld philo %d is eating\n", gt(*time), philo->content);
 	philo->times.t_eaten++;
 	if (philo->times.t_must_eat)
 		check_eat(philo);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
-		if (!(check_life(philo, dead)) || is_dead(philo, dead))
+		if (!(check_life(philo)) || is_dead(philo, time))
+		{
+			unlocked_fork(philo, time);
 			return (1);
+		}		
 	}
-	unlocked_fork(philo);
+	unlocked_fork(philo, time);
 	return (0);
 }
 
-int	go_sleep(t_philo *philo, int *died)
+int	go_sleep(t_philo *philo, struct timeval *time)
 {
-	printf("philo %d is sleep now......\n", philo->content);
+	printf("%lld philo %d is sleeping\n", gt(*time), philo->content);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_sleep
 		+ philo->times.t_eat)
 	{
-		if (!(check_life(philo, died)) || is_dead(philo, died))
+		if (!(check_life(philo)) || is_dead(philo, time))
 			return (1);
 	}
 	return (0);
@@ -55,32 +59,31 @@ int	go_sleep(t_philo *philo, int *died)
 
 void	*routine(void *arg)
 {
-	int						dead;
 	t_philo					*node;
-	static struct timeval	time;
+	struct timeval			time;
 
 	node = (t_philo *)arg;
-	pthread_mutex_lock(&node->mutex.is_death);
-	dead = 0;
+	pthread_mutex_lock(&node->start->mutex.is_death);
 	gettimeofday(&time, NULL);
-	pthread_mutex_unlock(&node->mutex.is_death);
+	pthread_mutex_unlock(&node->start->mutex.is_death);
 	node->start_time = time;
 	if (node->content % 2 == 0)
 		usleep(1000);
 	while (1)
 	{
-		if (!(check_life(node, &dead)) || (is_dead(node, &dead)))
+		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
-		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
-			if (take_fork(node))
-				if (!(go_eat(node, &dead)))
-					if (!(go_sleep(node, &dead)))
-						printf("philo %d esta pensando\n", node->content);
+		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked) && !is_dead(node, &time))
+			if (take_fork(node, &time) && !is_dead(node, &time))
+				if (!(go_eat(node, &time)) && !is_dead(node, &time))
+					if (!(go_sleep(node, &time)) && !is_dead(node, &time))
+						printf("%lld philo %d is thinking\n", gt(time), node->content);
 	}
+	printf("saiu philo %d\n", node->content);
 	return (NULL);
 }
 
-int	start_thread(t_start start)
+int	start_thread(t_start start, t_philo *table)
 {
 	pthread_t	*th;
 	t_philo		*temp;
@@ -88,7 +91,7 @@ int	start_thread(t_start start)
 
 	i = 0;
 	th = (pthread_t *)malloc(sizeof(pthread_t) * start.num_philo);
-	temp = start.forks;
+	temp = table;
 	while (i < start.num_philo)
 	{
 		if (pthread_create(&th[i], NULL, &routine, (t_philo *)temp) != 0)
@@ -103,6 +106,7 @@ int	start_thread(t_start start)
 			error_msg("Failed to join thread!");
 		i++;
 	}
+	printf("se morreu, desaloque\n");
 	destroy_mutex(&start);
 	return (0);
 }

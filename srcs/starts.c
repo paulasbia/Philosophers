@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/27 10:28:56 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 15:22:59 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,8 @@ void	lets_start(t_start *start, char **av, int ac)
 {
 	(void)ac;
 	start->num_philo = ft_atoi(av[1]);
+	start->death = 0;
 	pthread_mutex_init(&start->mutex.is_death, NULL);
-	pthread_mutex_init(&start->mutex.is_write, NULL);
-	pthread_mutex_init(&start->mutex.forks, NULL);
 }
 
 t_philo	*create_node(int content, char **av, int ac)
@@ -89,6 +88,7 @@ t_philo	*create_table(t_start *start, char **av, int ac)
 	while (i <= start->num_philo)
 	{
 		temp = create_node(i, av, ac);
+		temp->start = start;
 		ft_lstadd_back(&table, temp);
 		printf("nó %d\n", i);
 		i++;

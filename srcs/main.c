@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/25 10:18:50 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 15:32:50 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,12 @@
 int	main(int ac, char **av)
 {
 	t_start	start;
+	t_philo	*list;
 
 	if (check_args(ac, av) == 1)
 		return (1);
 	lets_start(&start, av, ac);
-	start.forks = create_table(&start, av, ac);
-	start_thread(start);
-	ft_lstclear(&start.forks);
+	list = create_table(&start, av, ac);
+	start_thread(start, list);
+	ft_lstclear(&list);
 }

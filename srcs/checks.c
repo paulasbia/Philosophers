@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/27 10:59:44 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/30 15:27:41 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,15 @@ int	check_args(int ac, char **av)
 	return (0);
 }
 
-int	check_life(t_philo *philo, int *dead)
+int	check_life(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->mutex.is_death);
-	if (*dead == 1)
+	pthread_mutex_lock(&philo->start->mutex.is_death);
+	if (philo->start->death == 1)
 	{
-		pthread_mutex_unlock(&philo->mutex.is_death);
+		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (0);
 	}
-	pthread_mutex_unlock(&philo->mutex.is_death);
+	pthread_mutex_unlock(&philo->start->mutex.is_death);
 	return (1);
 }
 
