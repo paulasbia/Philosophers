@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/30 17:07:59 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 09:41:53 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	go_eat(t_philo *philo, struct timeval *time)
 		{
 			unlocked_fork(philo, time);
 			return (1);
-		}		
+		}
 	}
 	unlocked_fork(philo, time);
 	return (0);
@@ -59,8 +59,8 @@ int	go_sleep(t_philo *philo, struct timeval *time)
 
 void	*routine(void *arg)
 {
-	t_philo					*node;
-	struct timeval			time;
+	t_philo			*node;
+	struct timeval	time;
 
 	node = (t_philo *)arg;
 	pthread_mutex_lock(&node->start->mutex.is_death);
@@ -73,11 +73,13 @@ void	*routine(void *arg)
 	{
 		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
-		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked) && !is_dead(node, &time))
+		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked)
+			&& !is_dead(node, &time))
 			if (take_fork(node, &time) && !is_dead(node, &time))
 				if (!(go_eat(node, &time)) && !is_dead(node, &time))
 					if (!(go_sleep(node, &time)) && !is_dead(node, &time))
-						printf("%lld philo %d is thinking\n", gt(time), node->content);
+						printf("%lld philo %d is thinking\n", gt(time),
+							node->content);
 	}
 	printf("saiu philo %d\n", node->content);
 	return (NULL);
