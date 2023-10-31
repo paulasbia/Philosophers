@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 16:26:31 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 16:32:08 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,16 +71,15 @@ void	*routine(void *arg)
 	{
 		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
-		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked)
-			&& !is_dead(node, &time))
+		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
 		{
 			take_fork(node, &time);
 			if (!(go_eat(node, &time)) && !is_dead(node, &time))
 			{
-				if (!(go_sleep(node, &time)) && !is_dead(node, &time))
-					msg(node, &time, 3);
 				if (check_eat(node))
 					break ;
+				if (!(go_sleep(node, &time)) && !is_dead(node, &time))
+					msg(node, &time, 3);
 			}
 		}
 	}
