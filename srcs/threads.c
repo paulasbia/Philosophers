@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 09:41:53 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 10:17:14 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,9 +63,7 @@ void	*routine(void *arg)
 	struct timeval	time;
 
 	node = (t_philo *)arg;
-	pthread_mutex_lock(&node->start->mutex.is_death);
 	gettimeofday(&time, NULL);
-	pthread_mutex_unlock(&node->start->mutex.is_death);
 	node->start_time = time;
 	if (node->content % 2 == 0)
 		usleep(1000);
