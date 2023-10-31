@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/30 15:27:41 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 11:03:18 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +60,10 @@ int	check_life(t_philo *philo)
 	return (1);
 }
 
-void	check_eat(t_philo *philo)
+int	check_eat(t_philo *philo)
 {
-	if (philo->times.t_eaten != philo->times.t_must_eat)
-		return ;
-	pthread_mutex_lock(&philo->mutex.is_eating);
-	philo->times.t_eaten++;
-	pthread_mutex_unlock(&philo->mutex.is_eating);
+	if ((philo->times.t_must_eat)
+		&& (philo->times.t_must_eat == philo->times.t_eaten))
+		return (1);
+	return (0);
 }

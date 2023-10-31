@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 10:17:14 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 11:07:56 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,6 @@ int	go_eat(t_philo *philo, struct timeval *time)
 {
 	philo->last_eat = gt(philo->start_time);
 	printf("%lld philo %d is eating\n", gt(*time), philo->content);
-	philo->times.t_eaten++;
-	if (philo->times.t_must_eat)
-		check_eat(philo);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
 		if (!(check_life(philo)) || is_dead(philo, time))
@@ -42,6 +39,7 @@ int	go_eat(t_philo *philo, struct timeval *time)
 		}
 	}
 	unlocked_fork(philo, time);
+	philo->times.t_eaten++;
 	return (0);
 }
 
@@ -75,9 +73,13 @@ void	*routine(void *arg)
 			&& !is_dead(node, &time))
 			if (take_fork(node, &time) && !is_dead(node, &time))
 				if (!(go_eat(node, &time)) && !is_dead(node, &time))
+				{
+					if (check_eat(node))
+						break ;
 					if (!(go_sleep(node, &time)) && !is_dead(node, &time))
 						printf("%lld philo %d is thinking\n", gt(time),
 							node->content);
+				}
 	}
 	printf("saiu philo %d\n", node->content);
 	return (NULL);

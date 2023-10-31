@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 09:42:40 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 11:03:05 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ long long int		gt(struct timeval start);
 int					check_life(t_philo *philo);
 int					take_fork(t_philo *philo, struct timeval *time);
 void				unlocked_fork(t_philo *philo, struct timeval *time);
-void				check_eat(t_philo *philo);
+int					check_eat(t_philo *philo);
 int					start_thread(t_start start, t_philo *table);
 int					is_dead(t_philo *philo, struct timeval *time);
 void				destroy_mutex(t_start *start);
