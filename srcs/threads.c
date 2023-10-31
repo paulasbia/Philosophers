@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 11:07:56 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 16:26:31 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	is_dead(t_philo *philo, struct timeval *time)
 int	go_eat(t_philo *philo, struct timeval *time)
 {
 	philo->last_eat = gt(philo->start_time);
-	printf("%lld philo %d is eating\n", gt(*time), philo->content);
+	msg(philo, time, 1);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
 		if (!(check_life(philo)) || is_dead(philo, time))
@@ -45,7 +45,9 @@ int	go_eat(t_philo *philo, struct timeval *time)
 
 int	go_sleep(t_philo *philo, struct timeval *time)
 {
-	printf("%lld philo %d is sleeping\n", gt(*time), philo->content);
+	printf("%lld o philo %d vai fazer naninhaaaaaaaaaaa\n", gt(*time),
+		philo->content);
+	msg(philo, time, 2);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_sleep
 		+ philo->times.t_eat)
 	{
@@ -71,17 +73,17 @@ void	*routine(void *arg)
 			break ;
 		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked)
 			&& !is_dead(node, &time))
-			if (take_fork(node, &time) && !is_dead(node, &time))
-				if (!(go_eat(node, &time)) && !is_dead(node, &time))
-				{
-					if (check_eat(node))
-						break ;
-					if (!(go_sleep(node, &time)) && !is_dead(node, &time))
-						printf("%lld philo %d is thinking\n", gt(time),
-							node->content);
-				}
+		{
+			take_fork(node, &time);
+			if (!(go_eat(node, &time)) && !is_dead(node, &time))
+			{
+				if (!(go_sleep(node, &time)) && !is_dead(node, &time))
+					msg(node, &time, 3);
+				if (check_eat(node))
+					break ;
+			}
+		}
 	}
-	printf("saiu philo %d\n", node->content);
 	return (NULL);
 }
 

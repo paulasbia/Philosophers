@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 09:47:11 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/10/31 16:06:44 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,33 @@ int	ft_atoi(const char *nptr)
 	return (result * signal);
 }
 
+void	msg(t_philo *philo, struct timeval *time, int action)
+{
+	pthread_mutex_lock(&philo->mutex.is_write);
+	if (!check_life(philo))
+	{
+		pthread_mutex_unlock(&philo->mutex.is_write);
+		return ;
+	}
+	if (action == 0)
+	{
+		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
+		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
+	}
+	else if (action == 1)
+		printf("%lld philo %d is eating\n", gt(*time), philo->content);
+	else if (action == 2)
+		printf("%lld philo %d is sleeping\n", gt(*time), philo->content);
+	else if (action == 3)
+		printf("%lld philo %d is thinking\n", gt(*time), philo->content);
+	else
+		printf("%lld philo %d died\n", gt(*time), philo->content);
+	pthread_mutex_unlock(&philo->mutex.is_write);
+}
+
 int	go_check(t_philo *philo, struct timeval *time)
 {
-	while (philo->mutex.is_locked)
+	while (philo->mutex.is_locked || philo->next->mutex.is_locked)
 	{
 		usleep(50);
 		if (is_dead(philo, time))
@@ -56,8 +80,7 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		pthread_mutex_lock(&philo->next->fork);
 		philo->next->mutex.is_locked = 1;
 		philo->mutex.is_locked = 1;
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
+		msg(philo, time, 0);
 		return (1);
 	}
 	else
@@ -68,8 +91,7 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		pthread_mutex_lock(&philo->fork);
 		philo->next->mutex.is_locked = 1;
 		philo->mutex.is_locked = 1;
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
+		msg(philo, time, 0);
 		return (1);
 	}
 	return (0);
