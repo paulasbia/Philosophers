@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 10:31:40 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 11:31:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	check_args(int ac, char **av)
 {
 	int	i;
 
-	if (just_one(av))
-		return (1);
 	if (ac > 6 || ac < 5)
 		error_msg("Number of arguments is wrong!\n");
 	i = 1;
@@ -47,6 +45,8 @@ int	check_args(int ac, char **av)
 		error_msg("Argument TOO BIG!\n");
 	if (ac == 6 && (ft_atoi(av[5]) > MAX_INT || ft_atoi(av[5]) < 1))
 		error_msg("Argument is invalid or TOO BIG!\n");
+	if (just_one(av))
+		return (1);
 	return (0);
 }
 
