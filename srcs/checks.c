@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 10:24:27 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 10:31:40 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,27 +33,20 @@ int	check_args(int ac, char **av)
 	if (just_one(av))
 		return (1);
 	if (ac > 6 || ac < 5)
-	{
-		printf("Number of arguments is wrong!\n");
-		return (1);
-	}
+		error_msg("Number of arguments is wrong!\n");
 	i = 1;
 	while (i < ac)
 	{
 		if (is_number(av[i]) == 1)
-		{
-			printf("Argument is invalid!\n");
-			return (1);
-		}
+			error_msg("Argument is invalid!\n");
 		i++;
 	}
 	if (ft_atoi(av[1]) > 1000 || ft_atoi(av[2]) > MAX_INT
 		|| ft_atoi(av[3]) > MAX_INT || ft_atoi(av[4]) > MAX_INT
 		|| ft_atoi(av[2]) < 0 || ft_atoi(av[3]) < 0 || ft_atoi(av[4]) < 0)
-	{
-		printf("Argument TOO BIG!\n");
-		return (1);
-	}
+		error_msg("Argument TOO BIG!\n");
+	if (ac == 6 && (ft_atoi(av[5]) > MAX_INT || ft_atoi(av[5]) < 1))
+		error_msg("Argument is invalid or TOO BIG!\n");
 	return (0);
 }
 
