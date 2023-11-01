@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 11:03:18 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 10:24:27 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ int	check_args(int ac, char **av)
 {
 	int	i;
 
+	if (just_one(av))
+		return (1);
 	if (ac > 6 || ac < 5)
 	{
-		error_msg("Number of arguments is wrong!\n");
+		printf("Number of arguments is wrong!\n");
 		return (1);
 	}
 	i = 1;
@@ -40,10 +42,17 @@ int	check_args(int ac, char **av)
 	{
 		if (is_number(av[i]) == 1)
 		{
-			error_msg("Argument is invalid!\n");
+			printf("Argument is invalid!\n");
 			return (1);
 		}
 		i++;
+	}
+	if (ft_atoi(av[1]) > 1000 || ft_atoi(av[2]) > MAX_INT
+		|| ft_atoi(av[3]) > MAX_INT || ft_atoi(av[4]) > MAX_INT
+		|| ft_atoi(av[2]) < 0 || ft_atoi(av[3]) < 0 || ft_atoi(av[4]) < 0)
+	{
+		printf("Argument TOO BIG!\n");
+		return (1);
 	}
 	return (0);
 }

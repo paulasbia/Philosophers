@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/30 15:22:59 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 10:02:16 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,8 @@ t_philo	*create_table(t_start *start, char **av, int ac)
 	while (i <= start->num_philo)
 	{
 		temp = create_node(i, av, ac);
+		if (!temp)
+			error_msg("Error to alloc");
 		temp->start = start;
 		ft_lstadd_back(&table, temp);
 		printf("nó %d\n", i);

@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 16:10:37 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 10:19:58 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include <stdlib.h>
 # include <sys/time.h>
 # include <unistd.h>
+
+# define MAX_INT 2147483647
 
 # define FIRST_FORK 0
 # define SECOND_FORK 1
@@ -65,10 +67,11 @@ typedef struct s_philo
 	t_start			*start;
 }					t_philo;
 
+int					just_one(char **av);
 int					check_args(int ac, char **av);
 int					error_msg(const char *msg);
 void				msg(t_philo *philo, struct timeval *time, int action);
-int					ft_atoi(const char *nptr);
+long int			ft_atoi(const char *nptr);
 void				lets_start(t_start *start, char **av, int ac);
 t_philo				*create_table(t_start *start, char **av, int ac);
 long long int		gt(struct timeval start);
