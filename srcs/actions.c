@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 11:50:02 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/01 15:12:30 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,17 +22,22 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 	}
 	if (action == 0)
 	{
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
-		printf("%lld philo %d has taken a fork\n", gt(*time), philo->content);
+		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
+			philo->content);
+		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
+			philo->content);
 	}
 	else if (action == 1)
-		printf("%lld philo %d is eating\n", gt(*time), philo->content);
+		printf("\033[33m%lld philo %d is eating\n\e[0m", gt(*time),
+			philo->content);
 	else if (action == 2)
-		printf("%lld philo %d is sleeping\n", gt(*time), philo->content);
+		printf("\033[36m%lld philo %d is sleeping\n\e[0m", gt(*time),
+			philo->content);
 	else if (action == 3)
-		printf("%lld philo %d is thinking\n", gt(*time), philo->content);
+		printf("\033[95m%lld philo %d is thinking\n\e[0m", gt(*time),
+			philo->content);
 	else
-		printf("%lld philo %d died\n", gt(*time), philo->content);
+		printf("\033[91m%lld philo %d died\n\e[0m", gt(*time), philo->content);
 	pthread_mutex_unlock(&philo->mutex.is_write);
 }
 
