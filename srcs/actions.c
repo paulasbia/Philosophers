@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 09:25:48 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 11:50:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	take_fork(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
-void	unlocked_fork(t_philo *philo, struct timeval *time)
+void	unlocked_fork(t_philo *philo)
 {
 	if (philo->content % 2 == 0)
 	{
@@ -84,9 +84,6 @@ void	unlocked_fork(t_philo *philo, struct timeval *time)
 		pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->next->fork);
 		pthread_mutex_unlock(&philo->fork);
-		printf("%lld philo %d has unlock a fork\n", gt(*time), philo->content);
-		printf("%lld philo %d has unlock a second fork\n", gt(*time),
-			philo->content);
 	}
 	else
 	{
@@ -96,9 +93,5 @@ void	unlocked_fork(t_philo *philo, struct timeval *time)
 		pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->fork);
 		pthread_mutex_unlock(&philo->next->fork);
-		printf("%lld philo %d has unlock a second fork\n", gt(*time),
-			philo->content);
-		printf("%lld philo %d has unlock a first fork\n", gt(*time),
-			philo->content);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 10:19:58 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 11:50:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ t_philo				*create_table(t_start *start, char **av, int ac);
 long long int		gt(struct timeval start);
 int					check_life(t_philo *philo);
 int					take_fork(t_philo *philo, struct timeval *time);
-void				unlocked_fork(t_philo *philo, struct timeval *time);
+void				unlocked_fork(t_philo *philo);
 int					check_eat(t_philo *philo);
 int					start_thread(t_start start, t_philo *table);
 int					is_dead(t_philo *philo, struct timeval *time);
-void				destroy_mutex(t_start *start);
+void				destroy_mutex(t_start *start, t_philo *new);
 void				ft_lstclear(t_philo **lst);
 
 #endif

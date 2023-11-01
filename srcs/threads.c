@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/10/31 16:32:08 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/01 11:51:35 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,19 +34,17 @@ int	go_eat(t_philo *philo, struct timeval *time)
 	{
 		if (!(check_life(philo)) || is_dead(philo, time))
 		{
-			unlocked_fork(philo, time);
+			unlocked_fork(philo);
 			return (1);
 		}
 	}
-	unlocked_fork(philo, time);
+	unlocked_fork(philo);
 	philo->times.t_eaten++;
 	return (0);
 }
 
 int	go_sleep(t_philo *philo, struct timeval *time)
 {
-	printf("%lld o philo %d vai fazer naninhaaaaaaaaaaa\n", gt(*time),
-		philo->content);
 	msg(philo, time, 2);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_sleep
 		+ philo->times.t_eat)
@@ -109,7 +107,7 @@ int	start_thread(t_start start, t_philo *table)
 			error_msg("Failed to join thread!");
 		i++;
 	}
-	printf("se morreu, desaloque\n");
-	destroy_mutex(&start);
+	destroy_mutex(&start, table);
+	free(th);
 	return (0);
 }
