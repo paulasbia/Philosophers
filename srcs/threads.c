@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 15:12:22 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/02 13:59:05 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ int	start_thread(t_start start, t_philo *table)
 	while (i < start.num_philo)
 	{
 		if (pthread_create(&th[i], NULL, &routine, (t_philo *)temp) != 0)
-			error_msg("Failed to create thread");
+			return (error_msg("Failed to create thread"));
 		i++;
 		temp = temp->next;
 	}
@@ -105,7 +105,7 @@ int	start_thread(t_start start, t_philo *table)
 	while (i < start.num_philo)
 	{
 		if (pthread_join(th[i], NULL) != 0)
-			error_msg("Failed to join thread!");
+			return (error_msg("Failed to join thread!"));
 		i++;
 	}
 	destroy_mutex(&start, table);

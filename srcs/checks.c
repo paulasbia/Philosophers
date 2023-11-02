@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 09:20:11 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/02 14:00:57 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ int	check_args2(int ac, char **av)
 	if (ft_atoi(av[1]) > 1000 || ft_atoi(av[2]) > MAX_INT
 		|| ft_atoi(av[3]) > MAX_INT || ft_atoi(av[4]) > MAX_INT
 		|| ft_atoi(av[2]) < 0 || ft_atoi(av[3]) < 0 || ft_atoi(av[4]) < 0)
-		return (printf("\033[31mArgument TOO BIG!\n\e[0m"));
+		return (error_msg("Argument TOO BIG!\n"));
 	if (ac == 6 && (ft_atoi(av[5]) > MAX_INT || ft_atoi(av[5]) < 1))
-		return (printf("\033[31mArgument invalid or TOO BIG!\n\e[0m"));
+		return (error_msg("Argument invalid or TOO BIG!\n"));
 	return (0);
 }
 
@@ -42,12 +42,12 @@ int	check_args(int ac, char **av)
 	int	i;
 
 	if (ac > 6 || ac < 5)
-		return (printf("\033[31mNumber of arguments is wrong!\n\e[0m"));
+		return (error_msg("Number of arguments is wrong!\n"));
 	i = 1;
 	while (i < ac)
 	{
 		if (is_number(av[i]) == 1)
-			return (printf("\033[31mArgument is invalid!\n\e[0m"));
+			return (error_msg("rgument is invalid!\n"));
 		i++;
 	}
 	if (check_args2(ac, av))
