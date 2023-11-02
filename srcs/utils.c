@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 10:23:06 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/02 09:24:42 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,9 @@ int	just_one(char **av)
 {
 	if (ft_atoi(av[1]) == 1)
 	{
-		printf("%i %d took a fork\n", 0, 1);
+		printf("\033[32m%i %d took a fork\n\e[0m", 0, 1);
 		usleep(ft_atoi(av[2]) * 1000);
-		printf("%li %d died\n", ft_atoi(av[2]) + 1, 1);
+		printf("\033[91m%li %d died\n\e[0m", ft_atoi(av[2]) + 1, 1);
 		return (1);
 	}
 	return (0);

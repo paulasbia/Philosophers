@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:21:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 14:48:21 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/02 09:11:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int ac, char **av)
 	t_start	start;
 	t_philo	*list;
 
-	if (check_args(ac, av) == 1)
+	if (check_args(ac, av))
 		return (1);
 	lets_start(&start, av, ac);
 	list = create_table(&start, av, ac);
