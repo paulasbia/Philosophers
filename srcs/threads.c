@@ -6,7 +6,7 @@
 /*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 13:59:05 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/02 14:38:33 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	is_dead(t_philo *philo, struct timeval *time)
 	{
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
-			printf("\033[91m%lld philo %d died\n\e[0m", gt(*time),
-				philo->content);
+			msg(philo, time, 4);
 		philo->start->death = 1;
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (1);

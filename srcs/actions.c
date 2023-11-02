@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 09:36:17 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/02 14:37:14 by paulabiazot      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,14 @@
 
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
+//	printf("vai escrever philo %d esta com death %d\n", philo->content, philo->start->death);
 	pthread_mutex_lock(&philo->mutex.is_write);
-	if (!check_life(philo))
+/*	if (!check_life(philo))
 	{
+		printf("vai escrever philo %d esta com death %d\n", philo->content, philo->start->death);
 		pthread_mutex_unlock(&philo->mutex.is_write);
 		return ;
-	}
+	}*/
 	if (action == 0)
 	{
 		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
