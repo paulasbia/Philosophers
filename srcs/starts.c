@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 11:51:06 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/02 09:39:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_philo	*create_node(int content, char **av, int ac)
 	pthread_mutex_init(&new->fork, NULL);
 	pthread_mutex_init(&new->mutex.is_death, NULL);
 	pthread_mutex_init(&new->mutex.is_write, NULL);
-	pthread_mutex_init(&new->mutex.is_eating, NULL);
+//	pthread_mutex_init(&new->mutex.is_eating, NULL);
 	pthread_mutex_init(&new->mutex.forks, NULL);
 	new->mutex.is_locked = 0;
 	new->content = content;
@@ -40,7 +40,7 @@ t_philo	*create_node(int content, char **av, int ac)
 	new->times.t_eat = ft_atoi(av[3]);
 	new->times.t_sleep = ft_atoi(av[4]);
 	new->times.t_eaten = 0;
-	new->times.t_eating = 0;
+//	new->times.t_eating = 0;
 	if (ac == 6)
 		new->times.t_must_eat = ft_atoi(av[5]);
 	else
