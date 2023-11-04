@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 14:11:27 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/04 11:13:06 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	check_args(int ac, char **av)
 	while (i < ac)
 	{
 		if (is_number(av[i]) == 1)
-			return (error_msg("rgument is invalid!\n"));
+			return (error_msg("Argument is invalid!\n"));
 		i++;
 	}
 	if (check_args2(ac, av))

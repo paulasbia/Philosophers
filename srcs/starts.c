@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 09:39:26 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/04 11:11:02 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ t_philo	*create_node(int content, char **av, int ac)
 	if (new == 0)
 		return (NULL);
 	pthread_mutex_init(&new->fork, NULL);
-	pthread_mutex_init(&new->mutex.is_death, NULL);
+//	pthread_mutex_init(&new->mutex.is_death, NULL);
 	pthread_mutex_init(&new->mutex.is_write, NULL);
 //	pthread_mutex_init(&new->mutex.is_eating, NULL);
 	pthread_mutex_init(&new->mutex.forks, NULL);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 14:37:14 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/04 11:13:15 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	go_check(t_philo *philo, struct timeval *time)
 {
 	while (philo->mutex.is_locked || philo->next->mutex.is_locked)
 	{
-		usleep(50);
+//		usleep(50);
 		if (is_dead(philo, time))
 			return (1);
 	}
