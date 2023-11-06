@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/04 11:13:15 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/06 11:13:01 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,7 @@
 
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
-//	printf("vai escrever philo %d esta com death %d\n", philo->content, philo->start->death);
 	pthread_mutex_lock(&philo->mutex.is_write);
-/*	if (!check_life(philo))
-	{
-		printf("vai escrever philo %d esta com death %d\n", philo->content, philo->start->death);
-		pthread_mutex_unlock(&philo->mutex.is_write);
-		return ;
-	}*/
 	if (action == 0)
 	{
 		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
@@ -47,7 +40,6 @@ int	go_check(t_philo *philo, struct timeval *time)
 {
 	while (philo->mutex.is_locked || philo->next->mutex.is_locked)
 	{
-//		usleep(50);
 		if (is_dead(philo, time))
 			return (1);
 	}

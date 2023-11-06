@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   frees.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/04 11:11:22 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/06 11:06:49 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	destroy_mutex(t_start *start, t_philo *new)
 {
 	pthread_mutex_destroy(&start->mutex.is_death);
 	pthread_mutex_init(&new->fork, NULL);
-//	pthread_mutex_init(&new->mutex.is_death, NULL);
 	pthread_mutex_init(&new->mutex.is_write, NULL);
-//	pthread_mutex_init(&new->mutex.is_eating, NULL);
 	pthread_mutex_init(&new->mutex.forks, NULL);
 }
 
