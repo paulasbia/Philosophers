@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 14:38:33 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/06 12:22:54 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,15 @@
 
 int	is_dead(t_philo *philo, struct timeval *time)
 {
-	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
+	if (gt(philo->start_time) - philo->last_eat >= philo->times.t_death)
 	{
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
-			msg(philo, time, 4);
+		{
+			pthread_mutex_lock(&philo->mutex.is_write);
+			printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
+			pthread_mutex_unlock(&philo->mutex.is_write);
+		}			
 		philo->start->death = 1;
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (1);

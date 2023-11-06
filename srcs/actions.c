@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 11:13:01 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:21:32 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,29 @@
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
 	pthread_mutex_lock(&philo->mutex.is_write);
+	if (!check_life(philo))
+	{
+		pthread_mutex_unlock(&philo->mutex.is_write);
+		return ;
+	}
 	if (action == 0)
 	{
-		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
+		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
 			philo->content);
-		printf("\033[32m%lld philo %d has taken a fork\n\e[0m", gt(*time),
+		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
 			philo->content);
 	}
 	else if (action == 1)
-		printf("\033[33m%lld philo %d is eating\n\e[0m", gt(*time),
+		printf("\033[33m%lld %d is eating\n\033[0m", gt(*time),
 			philo->content);
 	else if (action == 2)
-		printf("\033[36m%lld philo %d is sleeping\n\e[0m", gt(*time),
+		printf("\033[36m%lld %d is sleeping\n\033[0m", gt(*time),
 			philo->content);
 	else if (action == 3)
-		printf("\033[95m%lld philo %d is thinking\n\e[0m", gt(*time),
+		printf("\033[95m%lld %d is thinking\n\033[0m", gt(*time),
 			philo->content);
 	else
-		printf("\033[91m%lld philo %d died\n\e[0m", gt(*time), philo->content);
+		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
 	pthread_mutex_unlock(&philo->mutex.is_write);
 }
 
