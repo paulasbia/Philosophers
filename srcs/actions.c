@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 13:47:40 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 14:39:52 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,20 +82,21 @@ void	unlocked_fork(t_philo *philo)
 {
 	if (philo->content % 2 == 0)
 	{
-		pthread_mutex_lock(&philo->mutex.forks);
-		philo->mutex.is_locked = 0;
-		philo->next->mutex.is_locked = 0;
-		pthread_mutex_unlock(&philo->mutex.forks);
+	//	pthread_mutex_lock(&philo->mutex.forks);
+	//	pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->next->fork);
 		pthread_mutex_unlock(&philo->fork);
+		philo->mutex.is_locked = 0;
+		philo->next->mutex.is_locked = 0;
 	}
 	else
 	{
-		pthread_mutex_lock(&philo->mutex.forks);
-		philo->mutex.is_locked = 0;
-		philo->next->mutex.is_locked = 0;
-		pthread_mutex_unlock(&philo->mutex.forks);
+	//	pthread_mutex_lock(&philo->mutex.forks);
+	//	pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->fork);
 		pthread_mutex_unlock(&philo->next->fork);
+		philo->mutex.is_locked = 0;
+		philo->next->mutex.is_locked = 0;
+		
 	}
 }

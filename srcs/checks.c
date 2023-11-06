@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/04 11:13:06 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/06 14:46:10 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	is_number(char *str)
 	{
 		if (str[i] < '0' || str[i] > '9')
 			return (1);
-		i++;
+		i++;	//	pthread_mutex_lock(&philo->mutex.forks);
+	//	pthread_mutex_unlock(&philo->mutex.forks);
 	}
 	return (0);
 }
