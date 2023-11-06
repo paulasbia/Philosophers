@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 14:39:52 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:26:34 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 	}
 	if (action == 0)
 	{
-		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
-			philo->content);
 		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
 			philo->content);
 	}
@@ -58,22 +56,22 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		if (go_check(philo, time))
 			return (1);
 		pthread_mutex_lock(&philo->fork);
-		pthread_mutex_lock(&philo->next->fork);
-		philo->next->mutex.is_locked = 1;
 		philo->mutex.is_locked = 1;
 		msg(philo, time, 0);
-		return (1);
+		pthread_mutex_lock(&philo->next->fork);
+		philo->next->mutex.is_locked = 1;
+		msg(philo, time, 0);
 	}
 	else
 	{
 		if (go_check(philo, time))
 			return (1);
 		pthread_mutex_lock(&philo->next->fork);
-		pthread_mutex_lock(&philo->fork);
 		philo->next->mutex.is_locked = 1;
+		msg(philo, time, 0);
+		pthread_mutex_lock(&philo->fork);
 		philo->mutex.is_locked = 1;
 		msg(philo, time, 0);
-		return (1);
 	}
 	return (0);
 }
@@ -82,8 +80,6 @@ void	unlocked_fork(t_philo *philo)
 {
 	if (philo->content % 2 == 0)
 	{
-	//	pthread_mutex_lock(&philo->mutex.forks);
-	//	pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->next->fork);
 		pthread_mutex_unlock(&philo->fork);
 		philo->mutex.is_locked = 0;
@@ -91,12 +87,9 @@ void	unlocked_fork(t_philo *philo)
 	}
 	else
 	{
-	//	pthread_mutex_lock(&philo->mutex.forks);
-	//	pthread_mutex_unlock(&philo->mutex.forks);
 		pthread_mutex_unlock(&philo->fork);
 		pthread_mutex_unlock(&philo->next->fork);
 		philo->mutex.is_locked = 0;
 		philo->next->mutex.is_locked = 0;
-		
 	}
 }

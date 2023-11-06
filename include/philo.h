@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 14:43:50 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 15:18:38 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_mutex
 	pthread_mutex_t	is_death;
 	int				is_locked;
 	pthread_mutex_t	is_write;
-//	pthread_mutex_t	is_eating;
 }					t_mutex;
 
 typedef struct s_start
