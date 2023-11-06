@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paulabiazotto <paulabiazotto@student.42    +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/01 15:03:35 by paulabiazot      ###   ########.fr       */
+/*   Updated: 2023/11/06 13:40:49 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef struct s_mutex
 	pthread_mutex_t	is_death;
 	int				is_locked;
 	pthread_mutex_t	is_write;
-	pthread_mutex_t	is_eating;
 	pthread_mutex_t	forks;
 }					t_mutex;
 

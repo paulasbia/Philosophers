@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 11:06:49 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:42:00 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	destroy_mutex(t_start *start, t_philo *new)
 {
 	pthread_mutex_destroy(&start->mutex.is_death);
 	pthread_mutex_init(&new->fork, NULL);
-	pthread_mutex_init(&new->mutex.is_write, NULL);
+	pthread_mutex_init(&start->mutex.is_write, NULL);
 	pthread_mutex_init(&new->mutex.forks, NULL);
 }
 

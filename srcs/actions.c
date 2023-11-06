@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 12:21:32 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:47:40 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
-	pthread_mutex_lock(&philo->mutex.is_write);
+	pthread_mutex_lock(&philo->start->mutex.is_write);
 	if (!check_life(philo))
 	{
-		pthread_mutex_unlock(&philo->mutex.is_write);
+		pthread_mutex_unlock(&philo->start->mutex.is_write);
 		return ;
 	}
 	if (action == 0)
@@ -38,7 +38,7 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 			philo->content);
 	else
 		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
-	pthread_mutex_unlock(&philo->mutex.is_write);
+	pthread_mutex_unlock(&philo->start->mutex.is_write);
 }
 
 int	go_check(t_philo *philo, struct timeval *time)

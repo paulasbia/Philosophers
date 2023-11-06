@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 11:13:52 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 13:52:15 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	lets_start(t_start *start, char **av, int ac)
 	start->num_philo = ft_atoi(av[1]);
 	start->death = 0;
 	pthread_mutex_init(&start->mutex.is_death, NULL);
+	pthread_mutex_init(&start->mutex.is_write, NULL);
 }
 
 t_philo	*create_node(int content, char **av, int ac)
@@ -28,7 +29,6 @@ t_philo	*create_node(int content, char **av, int ac)
 	if (new == 0)
 		return (NULL);
 	pthread_mutex_init(&new->fork, NULL);
-	pthread_mutex_init(&new->mutex.is_write, NULL);
 	pthread_mutex_init(&new->mutex.forks, NULL);
 	new->mutex.is_locked = 0;
 	new->content = content;
