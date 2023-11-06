@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 12:41:29 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/06 12:52:16 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_dead(t_philo *philo, struct timeval *time)
 {
-	if (gt(philo->start_time) - philo->last_eat >= philo->times.t_death)
+	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
