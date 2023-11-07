@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 11:51:04 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 16:33:36 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	is_dead(t_philo *philo, struct timeval *time)
 int	go_eat(t_philo *philo, struct timeval *time)
 {
 	philo->last_eat = gt(philo->start_time);
+	philo->status = EAT;
 	msg(philo, time, 1);
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
@@ -50,6 +51,7 @@ int	go_eat(t_philo *philo, struct timeval *time)
 int	go_sleep(t_philo *philo, struct timeval *time)
 {
 	msg(philo, time, 2);
+	philo->status = SLEEP;
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_sleep
 		+ philo->times.t_eat)
 	{
@@ -73,13 +75,19 @@ void	*routine(void *arg)
 	{
 		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
-		take_fork(node, &time);
-		if (!(go_eat(node, &time)) && !is_dead(node, &time))
+		if (node->status == THINK)
 		{
+			take_fork(node, &time);
+			go_eat(node, &time);
 			if (check_eat(node))
 				break ;
-			if (!(go_sleep(node, &time)) && !is_dead(node, &time))
-				msg(node, &time, 3);
+		}
+		else if (node->status == EAT)
+			go_sleep(node, &time);
+		else if (node->status == SLEEP)
+		{
+			node->status = THINK;
+			msg(node, &time, 3);
 		}
 	}
 	return (NULL);
