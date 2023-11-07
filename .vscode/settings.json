@@ -5,5 +5,8 @@
             "binaryPath": "/Users/paulabiazotto/42lisboa/Philosophers/philo",
             "binaryArgs": []
         }
-    ]
+    ],
+    "files.associations": {
+        "philo.h": "c"
+    }
 }

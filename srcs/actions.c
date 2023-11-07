@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 11:19:26 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 11:47:55 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,7 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 			philo->content);
 	}
 	else if (action == 1)
-		printf("\033[33m%lld %d is eating\n\033[0m", gt(*time),
-			philo->content);
+		printf("\033[33m%lld %d is eating\n\033[0m", gt(*time), philo->content);
 	else if (action == 2)
 		printf("\033[36m%lld %d is sleeping\n\033[0m", gt(*time),
 			philo->content);
@@ -49,24 +48,31 @@ int	go_check(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
-t_grab_fork try_grab_this_fork(t_philo *philo){
-	t_grab_fork grabit;
-	
+t_grab_fork	try_grab_this_fork(t_philo *philo)
+{
+	t_grab_fork	grabit;
+
 	pthread_mutex_lock(&philo->fork);
-	if (philo->mutex.is_locked){
-		grabit = IT_DIDNT_WORK;	
-	}else{
+	if (philo->mutex.is_locked)
+	{
+		grabit = IT_DIDNT_WORK;
+	}
+	else
+	{
 		philo->mutex.is_locked = 1;
 		grabit = IT_WORKED;
 	}
 	pthread_mutex_unlock(&philo->fork);
-	return grabit;
+	return (grabit);
 }
+
+void		release_this_fork(t_philo *philo);
 
 int	take_fork(t_philo *philo, struct timeval *time)
 {
-	t_philo* first;
-	t_philo* second;
+	t_philo	*first;
+	t_philo	*second;
+
 	if (philo->content % 2 != 0)
 	{
 		first = philo;
@@ -77,22 +83,26 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		first = philo->next;
 		second = philo;
 	}
-	while(try_grab_this_fork(first) != IT_WORKED){
+	while (try_grab_this_fork(first) != IT_WORKED)
+	{
 		if (is_dead(first, time))
 			return (1);
 	}
 	msg(philo, time, 0);
-		
-	while(try_grab_this_fork(second->next) != IT_WORKED){
+	while (try_grab_this_fork(second) != IT_WORKED)
+	{
 		if (is_dead(second, time))
+		{
+			release_this_fork(first);
 			return (1);
+		}
 	}
 	msg(philo, time, 0);
 	return (0);
 }
 
-
-void release_this_fork(t_philo *philo){
+void	release_this_fork(t_philo *philo)
+{
 	pthread_mutex_lock(&philo->fork);
 	philo->mutex.is_locked = 0;
 	pthread_mutex_unlock(&philo->fork);

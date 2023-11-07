@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 11:12:51 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 11:25:50 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	*routine(void *arg)
 			if (!(go_sleep(node, &time)) && !is_dead(node, &time))
 				msg(node, &time, 3);
 		}
-		
 	}
 	return (NULL);
 }
