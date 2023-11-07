@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 11:00:07 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 16:15:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct s_start
 typedef struct s_philo
 {
 	int				num_philo;
+	int				status;
 	struct timeval	start_time;
 	long long int	last_eat;
 	pthread_mutex_t	fork;

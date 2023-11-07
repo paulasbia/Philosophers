@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   starts.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 15:23:29 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 16:15:43 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_philo	*create_node(int content, char **av, int ac)
 	pthread_mutex_init(&new->fork, NULL);
 	new->mutex.is_locked = 0;
 	new->content = content;
+	new->status = THINK;
 	new->next = 0;
 	new->last_eat = 0;
 	new->times.t_death = ft_atoi(av[2]);
