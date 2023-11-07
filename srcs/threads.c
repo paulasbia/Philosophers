@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 16:33:36 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 17:52:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ int	is_dead(t_philo *philo, struct timeval *time)
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
 		{
-			pthread_mutex_lock(&philo->start->mutex.is_write);
-			printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
-			pthread_mutex_unlock(&philo->start->mutex.is_write);
+			// pthread_mutex_lock(&philo->start->mutex.is_write);
+			// printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
+			// pthread_mutex_unlock(&philo->start->mutex.is_write);
+			msg(philo, time, 4);
 		}
 		philo->start->death = 1;
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
