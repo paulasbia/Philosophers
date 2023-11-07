@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 15:18:38 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:00:07 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,12 @@
 # define SLEEP 3
 # define THINK 4
 # define DIED 5
+
+typedef enum grab_fork_
+{
+	IT_WORKED,
+	IT_DIDNT_WORK
+}					t_grab_fork;
 
 typedef struct s_times
 {

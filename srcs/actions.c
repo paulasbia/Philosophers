@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 15:26:34 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:19:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,47 +49,65 @@ int	go_check(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
+t_grab_fork try_grab_this_fork(t_philo *philo){
+	t_grab_fork grabit;
+	
+	pthread_mutex_lock(&philo->fork);
+	if (philo->mutex.is_locked){
+		grabit = IT_DIDNT_WORK;	
+	}else{
+		philo->mutex.is_locked = 1;
+		grabit = IT_WORKED;
+	}
+	pthread_mutex_unlock(&philo->fork);
+	return grabit;
+}
+
 int	take_fork(t_philo *philo, struct timeval *time)
 {
+	t_philo* first;
+	t_philo* second;
 	if (philo->content % 2 != 0)
 	{
-		if (go_check(philo, time))
-			return (1);
-		pthread_mutex_lock(&philo->fork);
-		philo->mutex.is_locked = 1;
-		msg(philo, time, 0);
-		pthread_mutex_lock(&philo->next->fork);
-		philo->next->mutex.is_locked = 1;
-		msg(philo, time, 0);
+		first = philo;
+		second = philo->next;
 	}
 	else
 	{
-		if (go_check(philo, time))
-			return (1);
-		pthread_mutex_lock(&philo->next->fork);
-		philo->next->mutex.is_locked = 1;
-		msg(philo, time, 0);
-		pthread_mutex_lock(&philo->fork);
-		philo->mutex.is_locked = 1;
-		msg(philo, time, 0);
+		first = philo->next;
+		second = philo;
 	}
+	while(try_grab_this_fork(first) != IT_WORKED){
+		if (is_dead(first, time))
+			return (1);
+	}
+	msg(philo, time, 0);
+		
+	while(try_grab_this_fork(second->next) != IT_WORKED){
+		if (is_dead(second, time))
+			return (1);
+	}
+	msg(philo, time, 0);
 	return (0);
+}
+
+
+void release_this_fork(t_philo *philo){
+	pthread_mutex_lock(&philo->fork);
+	philo->mutex.is_locked = 0;
+	pthread_mutex_unlock(&philo->fork);
 }
 
 void	unlocked_fork(t_philo *philo)
 {
 	if (philo->content % 2 == 0)
 	{
-		pthread_mutex_unlock(&philo->next->fork);
-		pthread_mutex_unlock(&philo->fork);
-		philo->mutex.is_locked = 0;
-		philo->next->mutex.is_locked = 0;
+		release_this_fork(philo);
+		release_this_fork(philo->next);
 	}
 	else
 	{
-		pthread_mutex_unlock(&philo->fork);
-		pthread_mutex_unlock(&philo->next->fork);
-		philo->mutex.is_locked = 0;
-		philo->next->mutex.is_locked = 0;
+		release_this_fork(philo->next);
+		release_this_fork(philo);
 	}
 }

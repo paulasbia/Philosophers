@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 13:51:42 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 11:12:51 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,17 +73,15 @@ void	*routine(void *arg)
 	{
 		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
-		if (!(node->mutex.is_locked) && !(node->next->mutex.is_locked))
+		take_fork(node, &time);
+		if (!(go_eat(node, &time)) && !is_dead(node, &time))
 		{
-			take_fork(node, &time);
-			if (!(go_eat(node, &time)) && !is_dead(node, &time))
-			{
-				if (check_eat(node))
-					break ;
-				if (!(go_sleep(node, &time)) && !is_dead(node, &time))
-					msg(node, &time, 3);
-			}
+			if (check_eat(node))
+				break ;
+			if (!(go_sleep(node, &time)) && !is_dead(node, &time))
+				msg(node, &time, 3);
 		}
+		
 	}
 	return (NULL);
 }
