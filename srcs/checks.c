@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/06 15:25:02 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/07 08:27:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int	check_args(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		if (is_number(av[i]) == 1)
+		if (is_number(av[i]) == 1 || ft_atoi(av[1]) <= 0)
 			return (error_msg("Argument is invalid!\n"));
 		i++;
 	}
