@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 08:27:26 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 18:24:46 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	check_args(int ac, char **av)
 int	check_life(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->start->mutex.is_death);
-	if (philo->start->death == 1)
+	if (philo->start->death > 0)
 	{
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (0);

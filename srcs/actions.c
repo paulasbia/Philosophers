@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 18:04:38 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 18:18:10 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,11 @@
 
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
-	pthread_mutex_lock(&philo->start->mutex.is_write);
-	// if (!check_life(philo))
-	// {
-	// 	pthread_mutex_unlock(&philo->start->mutex.is_write);
-	// 	return ;
-	// }
+	pthread_mutex_lock(&philo->start->mutex.is_death);
+	if(philo->start->death > 0 && philo->start->death != philo->content){
+		pthread_mutex_unlock(&philo->start->mutex.is_death);
+		return;
+	}
 	if (action == 0)
 	{
 		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
@@ -35,7 +34,7 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 			philo->content);
 	else
 		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
-	pthread_mutex_unlock(&philo->start->mutex.is_write);
+	pthread_mutex_unlock(&philo->start->mutex.is_death);
 }
 
 int	go_check(t_philo *philo, struct timeval *time)

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 17:52:23 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/07 18:31:16 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,19 @@
 
 int	is_dead(t_philo *philo, struct timeval *time)
 {
+	int i_died_first = 1;
 	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
 		{
-			// pthread_mutex_lock(&philo->start->mutex.is_write);
-			// printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
-			// pthread_mutex_unlock(&philo->start->mutex.is_write);
-			msg(philo, time, 4);
+			philo->start->death = philo->content;	
+		}else{
+			i_died_first = 0;	
 		}
-		philo->start->death = 1;
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
+		if(i_died_first)
+			msg(philo, time, 4);
 		return (1);
 	}
 	return (0);
@@ -78,8 +79,8 @@ void	*routine(void *arg)
 			break ;
 		if (node->status == THINK)
 		{
-			take_fork(node, &time);
-			go_eat(node, &time);
+			if(take_fork(node, &time) == 0)
+				go_eat(node, &time);
 			if (check_eat(node))
 				break ;
 		}
