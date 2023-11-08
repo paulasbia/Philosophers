@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/02 09:24:42 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:08:25 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,20 @@ long int	ft_atoi(const char *nptr)
 		nptr++;
 	}
 	return ((long int)result * signal);
+}
+
+int	is_number(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < '0' || str[i] > '9')
+			return (1);
+		i++;
+	}
+	return (0);
 }
 
 int	just_one(char **av)

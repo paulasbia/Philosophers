@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 16:15:25 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:08:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ typedef struct s_mutex
 {
 	pthread_mutex_t	is_death;
 	int				is_locked;
-	pthread_mutex_t	is_write;
 }					t_mutex;
 
 typedef struct s_start
@@ -74,6 +73,7 @@ typedef struct s_philo
 
 int					just_one(char **av);
 int					check_args(int ac, char **av);
+int					is_number(char *str);
 int					error_msg(const char *msg);
 void				msg(t_philo *philo, struct timeval *time, int action);
 long int			ft_atoi(const char *nptr);

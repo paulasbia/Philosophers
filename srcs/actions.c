@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 08:46:57 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:07:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,6 @@ void	msg(t_philo *philo, struct timeval *time, int action)
 	else
 		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
 	pthread_mutex_unlock(&philo->start->mutex.is_death);
-}
-
-int	go_check(t_philo *philo, struct timeval *time)
-{
-	while (philo->mutex.is_locked || philo->next->mutex.is_locked)
-	{
-		if (is_dead(philo, time))
-			return (1);
-	}
-	return (0);
 }
 
 t_grab_fork	try_grab_this_fork(t_philo *philo)

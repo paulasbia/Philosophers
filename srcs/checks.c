@@ -6,22 +6,18 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 18:24:46 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:08:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	is_number(char *str)
+int	go_check(t_philo *philo, struct timeval *time)
 {
-	int	i;
-
-	i = 0;
-	while (str[i])
+	while (philo->mutex.is_locked || philo->next->mutex.is_locked)
 	{
-		if (str[i] < '0' || str[i] > '9')
+		if (is_dead(philo, time))
 			return (1);
-		i++;
 	}
 	return (0);
 }
