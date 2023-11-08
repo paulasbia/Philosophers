@@ -6,13 +6,11 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 16:36:52 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 16:38:12 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
-
-
 
 int	go_eat(t_philo *philo, struct timeval *time)
 {
