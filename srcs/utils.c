@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:50:30 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:08:25 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 16:36:20 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,4 +59,30 @@ int	just_one(char **av)
 		return (1);
 	}
 	return (0);
+}
+
+void	msg(t_philo *philo, struct timeval *time, int action)
+{
+	pthread_mutex_lock(&philo->start->mutex.is_death);
+	if (philo->start->death > 0 && philo->start->death != philo->content)
+	{
+		pthread_mutex_unlock(&philo->start->mutex.is_death);
+		return ;
+	}
+	if (action == 0)
+	{
+		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
+			philo->content);
+	}
+	else if (action == 1)
+		printf("\033[33m%lld %d is eating\n\033[0m", gt(*time), philo->content);
+	else if (action == 2)
+		printf("\033[36m%lld %d is sleeping\n\033[0m", gt(*time),
+			philo->content);
+	else if (action == 3)
+		printf("\033[95m%lld %d is thinking\n\033[0m", gt(*time),
+			philo->content);
+	else
+		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
+	pthread_mutex_unlock(&philo->start->mutex.is_death);
 }

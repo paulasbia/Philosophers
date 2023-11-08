@@ -6,35 +6,13 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 15:27:33 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 16:36:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-int	is_dead(t_philo *philo, struct timeval *time)
-{
-	int	i_died_first;
 
-	i_died_first = 1;
-	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
-	{
-		pthread_mutex_lock(&philo->start->mutex.is_death);
-		if (philo->start->death == 0)
-		{
-			philo->start->death = philo->content;
-		}
-		else
-		{
-			i_died_first = 0;
-		}
-		pthread_mutex_unlock(&philo->start->mutex.is_death);
-		if (i_died_first)
-			msg(philo, time, 4);
-		return (1);
-	}
-	return (0);
-}
 
 int	go_eat(t_philo *philo, struct timeval *time)
 {
@@ -48,6 +26,11 @@ int	go_eat(t_philo *philo, struct timeval *time)
 			unlocked_fork(philo);
 			return (1);
 		}
+	}
+	if (check_eat(philo) == philo->start->num_philo)
+	{
+		unlocked_fork(philo);
+		return (1);
 	}
 	unlocked_fork(philo);
 	philo->times.t_eaten++;
@@ -67,6 +50,12 @@ int	go_sleep(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
+void	go_think(t_philo *philo, struct timeval *time)
+{
+	msg(philo, time, 3);
+	philo->status = THINK;
+}
+
 void	*routine(void *node)
 {
 	struct timeval	time;
@@ -77,20 +66,18 @@ void	*routine(void *node)
 		usleep(1000);
 	while (1)
 	{
-		if (!(check_life(node)) || (is_dead(node, &time)) || check_eat(node))
+		if (!(check_life(node)) || (is_dead(node, &time)))
 			break ;
 		if (((t_philo *)node)->status == THINK)
 		{
 			if (take_fork(node, &time) == 0)
-				go_eat(node, &time);
+				if (go_eat(node, &time))
+					break ;
 		}
 		else if (((t_philo *)node)->status == EAT)
 			go_sleep(node, &time);
 		else if (((t_philo *)node)->status == SLEEP)
-		{
-			msg(node, &time, 3);
-			((t_philo *)node)->status = THINK;
-		}
+			go_think(node, &time);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:08:12 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 15:50:53 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,11 @@ int	check_life(t_philo *philo)
 int	check_eat(t_philo *philo)
 {
 	if ((philo->times.t_must_eat)
-		&& (philo->times.t_must_eat == philo->times.t_eaten))
-		return (1);
-	return (0);
+		&& (philo->times.t_must_eat != philo->times.t_eaten))
+		return (philo->start->eaten);
+	pthread_mutex_lock(&philo->start->mutex.is_eaten);
+	philo->start->eaten++;
+	pthread_mutex_unlock(&philo->start->mutex.is_eaten);
+	printf("philo %d eaten eh %d\n", philo->content, philo->start->eaten);
+	return (philo->start->eaten);
 }

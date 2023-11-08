@@ -6,36 +6,34 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 15:16:30 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 16:37:05 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/philo.h"
 
-void	msg(t_philo *philo, struct timeval *time, int action)
+int	is_dead(t_philo *philo, struct timeval *time)
 {
-	pthread_mutex_lock(&philo->start->mutex.is_death);
-	if (philo->start->death > 0 && philo->start->death != philo->content)
+	int	i_died_first;
+
+	i_died_first = 1;
+	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
+		pthread_mutex_lock(&philo->start->mutex.is_death);
+		if (philo->start->death == 0)
+		{
+			philo->start->death = philo->content;
+		}
+		else
+		{
+			i_died_first = 0;
+		}
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
-		return ;
+		if (i_died_first)
+			msg(philo, time, 4);
+		return (1);
 	}
-	if (action == 0)
-	{
-		printf("\033[32m%lld %d has taken a fork\n\033[0m", gt(*time),
-			philo->content);
-	}
-	else if (action == 1)
-		printf("\033[33m%lld %d is eating\n\033[0m", gt(*time), philo->content);
-	else if (action == 2)
-		printf("\033[36m%lld %d is sleeping\n\033[0m", gt(*time),
-			philo->content);
-	else if (action == 3)
-		printf("\033[95m%lld %d is thinking\n\033[0m", gt(*time),
-			philo->content);
-	else
-		printf("\033[91m%lld %d died\n\033[0m", gt(*time), philo->content);
-	pthread_mutex_unlock(&philo->start->mutex.is_death);
+	return (0);
 }
 
 t_grab_fork	try_grab_this_fork(t_philo *philo)
