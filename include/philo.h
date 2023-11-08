@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 15:33:24 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 15:36:17 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct s_start
 {
 	int				num_philo;
 	int				death;
+	int				eaten;
 	t_mutex			mutex;
 }					t_start;
 
