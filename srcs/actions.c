@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:07:56 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:09:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,6 @@ t_grab_fork	try_grab_this_fork(t_philo *philo)
 	pthread_mutex_unlock(&philo->fork);
 	return (grabit);
 }
-
-int	release_this_fork(t_philo *philo);
 
 int	take_fork(t_philo *philo, struct timeval *time)
 {

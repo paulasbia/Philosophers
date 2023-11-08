@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 10:31:07 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:08:52 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 10:10:26 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ t_philo				*create_table(t_start *start, char **av, int ac);
 long long int		gt(struct timeval start);
 int					check_life(t_philo *philo);
 int					take_fork(t_philo *philo, struct timeval *time);
+int					release_this_fork(t_philo *philo);
 void				unlocked_fork(t_philo *philo);
 int					check_eat(t_philo *philo);
 int					start_thread(t_start start, t_philo *table);
