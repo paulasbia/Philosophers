@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 16:38:12 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 17:27:32 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ int	go_eat(t_philo *philo, struct timeval *time)
 	philo->last_eat = gt(philo->start_time);
 	philo->status = EAT;
 	msg(philo, time, 1);
+	philo->times.t_eaten++;
+	if (check_eat(philo) == philo->start->num_philo)
+	{
+		unlocked_fork(philo);
+		return (1);
+	}
 	while (gt(philo->start_time) - philo->last_eat < philo->times.t_eat)
 	{
 		if (!(check_life(philo)) || is_dead(philo, time))
@@ -25,13 +31,7 @@ int	go_eat(t_philo *philo, struct timeval *time)
 			return (1);
 		}
 	}
-	if (check_eat(philo) == philo->start->num_philo)
-	{
-		unlocked_fork(philo);
-		return (1);
-	}
 	unlocked_fork(philo);
-	philo->times.t_eaten++;
 	return (0);
 }
 
@@ -50,6 +50,10 @@ int	go_sleep(t_philo *philo, struct timeval *time)
 
 void	go_think(t_philo *philo, struct timeval *time)
 {
+	if (gt(philo->start_time) - philo->last_eat < philo->times.t_death)
+	{
+		usleep(50);
+	}
 	msg(philo, time, 3);
 	philo->status = THINK;
 }
