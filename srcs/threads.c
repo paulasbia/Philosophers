@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 11:23:02 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 15:15:13 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,6 @@ int	go_sleep(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
-void	go_think(t_philo *philo, struct timeval *time)
-{
-	if ((philo->times.t_death - (gt(philo->start_time) - philo->last_eat)) > 10)
-	{
-		printf("sim\n");
-		usleep(10);
-		msg(philo, time, 3);
-		philo->status = THINK;
-	}
-	msg(philo, time, 3);
-	philo->status = THINK;
-}
-
 void	*routine(void *node)
 {
 	struct timeval	time;
@@ -101,7 +88,8 @@ void	*routine(void *node)
 			go_sleep(node, &time);
 		else if (((t_philo *)node)->status == SLEEP)
 		{
-			go_think(node, &time);
+			msg(node, &time, 3);
+			((t_philo *)node)->status = THINK;
 		}
 	}
 	return (NULL);

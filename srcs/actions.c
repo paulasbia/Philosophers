@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:09:56 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 15:16:30 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,10 +74,10 @@ int	take_fork(t_philo *philo, struct timeval *time)
 	while (try_grab_this_fork(first) != IT_WORKED)
 		if (is_dead(philo, time))
 			return (1);
-	msg(philo, time, 0);
 	while (try_grab_this_fork(second) != IT_WORKED)
 		if (is_dead(philo, time))
 			return (release_this_fork(first));
+	msg(philo, time, 0);
 	msg(philo, time, 0);
 	return (0);
 }
