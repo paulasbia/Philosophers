@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 16:24:12 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 10:07:23 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 15:34:11 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	destroy_mutex(t_start *start, t_philo *new)
 {
 	pthread_mutex_destroy(&start->mutex.is_death);
+	pthread_mutex_destroy(&start->mutex.is_eaten);
 	pthread_mutex_destroy(&new->fork);
 }
 
