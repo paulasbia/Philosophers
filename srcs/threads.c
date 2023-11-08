@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 18:31:16 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 08:56:23 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,22 @@
 
 int	is_dead(t_philo *philo, struct timeval *time)
 {
-	int i_died_first = 1;
+	int	i_died_first;
+
+	i_died_first = 1;
 	if (gt(philo->start_time) - philo->last_eat > philo->times.t_death)
 	{
 		pthread_mutex_lock(&philo->start->mutex.is_death);
 		if (philo->start->death == 0)
 		{
-			philo->start->death = philo->content;	
-		}else{
-			i_died_first = 0;	
+			philo->start->death = philo->content;
+		}
+		else
+		{
+			i_died_first = 0;
 		}
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
-		if(i_died_first)
+		if (i_died_first)
 			msg(philo, time, 4);
 		return (1);
 	}
@@ -63,32 +67,28 @@ int	go_sleep(t_philo *philo, struct timeval *time)
 	return (0);
 }
 
-void	*routine(void *arg)
+void	*routine(void *node)
 {
-	t_philo			*node;
 	struct timeval	time;
 
-	node = (t_philo *)arg;
 	gettimeofday(&time, NULL);
-	node->start_time = time;
-	if (node->content % 2 == 0)
+	((t_philo *)node)->start_time = time;
+	if (((t_philo *)node)->content % 2 == 0)
 		usleep(1000);
 	while (1)
 	{
-		if (!(check_life(node)) || (is_dead(node, &time)))
+		if (!(check_life(node)) || (is_dead(node, &time)) || check_eat(node))
 			break ;
-		if (node->status == THINK)
+		if (((t_philo *)node)->status == THINK)
 		{
-			if(take_fork(node, &time) == 0)
+			if (take_fork(node, &time) == 0)
 				go_eat(node, &time);
-			if (check_eat(node))
-				break ;
 		}
-		else if (node->status == EAT)
+		else if (((t_philo *)node)->status == EAT)
 			go_sleep(node, &time);
-		else if (node->status == SLEEP)
+		else if (((t_philo *)node)->status == SLEEP)
 		{
-			node->status = THINK;
+			((t_philo *)node)->status = THINK;
 			msg(node, &time, 3);
 		}
 	}

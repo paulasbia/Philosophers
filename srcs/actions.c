@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/01 09:25:18 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/07 18:18:10 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/08 08:46:57 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,10 @@
 void	msg(t_philo *philo, struct timeval *time, int action)
 {
 	pthread_mutex_lock(&philo->start->mutex.is_death);
-	if(philo->start->death > 0 && philo->start->death != philo->content){
+	if (philo->start->death > 0 && philo->start->death != philo->content)
+	{
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
-		return;
+		return ;
 	}
 	if (action == 0)
 	{
@@ -65,7 +66,7 @@ t_grab_fork	try_grab_this_fork(t_philo *philo)
 	return (grabit);
 }
 
-void		release_this_fork(t_philo *philo);
+int	release_this_fork(t_philo *philo);
 
 int	take_fork(t_philo *philo, struct timeval *time)
 {
@@ -83,28 +84,22 @@ int	take_fork(t_philo *philo, struct timeval *time)
 		second = philo;
 	}
 	while (try_grab_this_fork(first) != IT_WORKED)
-	{
 		if (is_dead(philo, time))
 			return (1);
-	}
 	msg(philo, time, 0);
 	while (try_grab_this_fork(second) != IT_WORKED)
-	{
 		if (is_dead(philo, time))
-		{
-			release_this_fork(first);
-			return (1);
-		}
-	}
+			return (release_this_fork(first));
 	msg(philo, time, 0);
 	return (0);
 }
 
-void	release_this_fork(t_philo *philo)
+int	release_this_fork(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->fork);
 	philo->mutex.is_locked = 0;
 	pthread_mutex_unlock(&philo->fork);
+	return (1);
 }
 
 void	unlocked_fork(t_philo *philo)
