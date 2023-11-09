@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 18:56:49 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/09 17:21:17 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@ int	go_eat(t_philo *philo, struct timeval *time)
 	{
 		if (check_eat(philo) == philo->start->num_philo)
 		{
+			pthread_mutex_lock(&philo->start->mutex.is_done);
+			philo->start->all_done = 1;
+			pthread_mutex_unlock(&philo->start->mutex.is_done);
 			unlocked_fork(philo);
 			return (1);
 		}

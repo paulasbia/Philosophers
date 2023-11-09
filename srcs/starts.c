@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 11:12:31 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/08 15:36:24 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/09 17:19:52 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,10 @@ void	lets_start(t_start *start, char **av, int ac)
 	start->num_philo = ft_atoi(av[1]);
 	start->death = 0;
 	start->eaten = 0;
+	start->all_done = 0;
 	pthread_mutex_init(&start->mutex.is_death, NULL);
 	pthread_mutex_init(&start->mutex.is_eaten, NULL);
+	pthread_mutex_init(&start->mutex.is_done, NULL);
 }
 
 t_philo	*create_node(int content, char **av, int ac)

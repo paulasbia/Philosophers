@@ -6,7 +6,7 @@
 /*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 11:21:06 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/09 15:13:11 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/09 17:20:56 by paula            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,20 @@ int	check_args(int ac, char **av)
 int	check_life(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->start->mutex.is_death);
-	if (philo->start->death > 0
-		|| philo->start->eaten == philo->start->num_philo)
+	pthread_mutex_lock(&philo->start->mutex.is_done);
+	if (philo->start->death > 0)
 	{
+		pthread_mutex_unlock(&philo->start->mutex.is_done);
 		pthread_mutex_unlock(&philo->start->mutex.is_death);
 		return (0);
 	}
+	if (philo->start->all_done == 1)
+	{
+		pthread_mutex_unlock(&philo->start->mutex.is_death);
+		pthread_mutex_unlock(&philo->start->mutex.is_done);
+		return (0);
+	}
+	pthread_mutex_unlock(&philo->start->mutex.is_done);
 	pthread_mutex_unlock(&philo->start->mutex.is_death);
 	return (1);
 }
@@ -70,7 +78,7 @@ int	check_eat(t_philo *philo)
 {
 	if ((philo->times.t_must_eat)
 		&& (philo->times.t_must_eat != philo->times.t_eaten))
-		return (philo->start->eaten);
+		return (0);
 	pthread_mutex_lock(&philo->start->mutex.is_eaten);
 	philo->start->eaten++;
 	pthread_mutex_unlock(&philo->start->mutex.is_eaten);
