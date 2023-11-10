@@ -6,7 +6,7 @@
 /*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/10 11:13:18 by pde-souz         ###   ########.fr       */
+/*   Updated: 2023/11/10 12:11:37 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ void	*routine(void *node)
 	gettimeofday(&time, NULL);
 	((t_philo *)node)->start_time = time;
 	if (((t_philo *)node)->content % 2 == 0)
+	{
+		msg((t_philo *)node, &time, 3);
 		usleep(10000);
+	}
 	while (1)
 	{
 		if (!(check_life(node)))
