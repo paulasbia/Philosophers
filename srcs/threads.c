@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   threads.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: paula <paula@student.42.fr>                +#+  +:+       +#+        */
+/*   By: pde-souz <pde-souz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 09:54:04 by paulabiazot       #+#    #+#             */
-/*   Updated: 2023/11/09 17:21:17 by paula            ###   ########.fr       */
+/*   Updated: 2023/11/10 10:31:56 by pde-souz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	*routine(void *node)
 	gettimeofday(&time, NULL);
 	((t_philo *)node)->start_time = time;
 	if (((t_philo *)node)->content % 2 == 0)
-		usleep(1000);
+		usleep(10000);
 	while (1)
 	{
-		if (!(check_life(node)) || (is_dead(node, &time)))
+		if (!(check_life(node)))
 			break ;
 		if (((t_philo *)node)->status == THINK)
 		{
