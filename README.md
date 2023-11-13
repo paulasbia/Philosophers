@@ -20,5 +20,7 @@ A project at 42 schools exploring process threading.
 
 ## Study references
 [**Theads EN list videos**](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+**
 [**Multitheading**](https://www.geeksforgeeks.org/multithreading-in-c/)
+**
 [**Difference between Process and Thread**](https://www.geeksforgeeks.org/difference-between-process-and-thread/)
