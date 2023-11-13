@@ -9,8 +9,8 @@
 	<img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/paulasbia/Phillosophers?color=brightgreen" />
 </p>
 
-- Actual Status : In progress...
-- Result        : ___%
+- Actual Status : Concluded
+- Result        : 100 %
 - Observations  : N.A
 
 ## About
@@ -19,3 +19,6 @@ Refer to the [**subject of this project**](https://github.com/paulasbia/Philloso
 A project at 42 schools exploring process threading.
 
 ## Study references
+[**Theads EN list videos**](https://www.youtube.com/watch?v=d9s_d28yJq0&list=PLfqABt5AS4FmuQf70psXrsMLEDQXNkLq2)
+[**Multitheading**](https://www.geeksforgeeks.org/multithreading-in-c/)
+[**Difference between Process and Thread**](https://www.geeksforgeeks.org/difference-between-process-and-thread/)
